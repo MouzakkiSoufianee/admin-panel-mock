@@ -1,26 +1,342 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: var(--background); /* background color */
+  --color-foreground: var(--foreground); /* main text color */
+  --color-gray: var(--gray); /* secondary text color */
+  --font-sans: var(--font-manrope); /* main font */
+  --font-serif: var(--font-inter); /* secondary font */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /*  Design System Colors */
+  --color-accent: var(--accent);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  /* Custom Colors */
+  --color-red: var(--red);
+  --color-green: var(--green);
+  --color-purple: var(--purple);
+  --color-orange: var(--orange);
+  --color-light-blue: var(--light-blue);
+  --color-light-green: var(--light-green);
+  --color-light-pink: var(--light-pink);
+  --color-light-purple: var(--light-purple);
+  --color-light-gray: var(--light-gray);
+  --color-light-yellow: var(--light-yellow);
+
+  /* Gradient Colors */
+  --gradient-primary-to-secondary: linear-gradient(90deg, #5a7bff 0%, #ac66e6 47%, #a855f7 100%);
+  --gradient-primary-to-secondary-2: linear-gradient(27.65deg, #5a7bff 8.18%, #ad6be0 63.38%, #a855f7 91.82%);
+  --gradient-chat-header: linear-gradient(90deg, #5a7bff 0%, #a855f7 100%);
+
+  /* Border and Input */
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+
+  /*  Chart Colors */
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+
+  /*  Popover, Card, Sidebar */
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-sidebar: var(--sidebar);
+
+  /* Shadows */
+  /* --shadow-md: 0 4px 6px -1px rgba(0, 53, 128, 0.1), 0 2px 4px -1px rgba(0, 53, 128, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 53, 128, 0.1), 0 4px 6px -2px rgba(0, 53, 128, 0.05); */
+
+  --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
+
+  @keyframes orbit {
+    0% {
+      transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px))
+        rotate(calc(var(--angle) * -1deg));
+    }
+    100% {
+      transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px))
+        rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --gray: #7a86a1;
+  --white: #ffffff;
+  --background: #ffffff;
+  --foreground: #003580;
+
+  --card: #ffffff;
+  --card-foreground: #003580;
+  --card-border: #ebebeb;
+  --popover: #ffffff;
+  --popover-foreground: #003580;
+  --sidebar: #f6faff;
+
+  /* Primary Colors */
+  --primary: #5a7bff;
+
+  /* Secondary Colors */
+  --secondary: #003580;
+
+  /* Accent Colors */
+  --accent: #5a7bff;
+
+  /* Muted Colors */
+  --muted: #f2f2f2;
+  --muted-foreground: #7a86a1;
+
+  /* Brand Colors */
+  --purple: #a855f7;
+  --orange: #ff964f;
+  --green: #22c55e;
+  --red: #f96767;
+
+  /* Status Colors */
+  --destructive: #f96767;
+  --success: #22c55e;
+  --warning: #ff964f;
+  --info: #a855f7;
+
+  /*  Light Colors */
+  --light-blue: #d3eaff;
+  --light-green: #dbffe8;
+  --light-pink: #fff4f2;
+  --light-purple: #f4e8ff;
+  --light-gray: #f2f2f2;
+  --light-yellow: #f8f3dd;
+
+  /* Border and Input */
+  --border: #e5e7eb;
+  --input: #f9fafb;
+  --ring: #5a7bff;
+
+  /* Chart Colors */
+  --chart-1: #5a7bff;
+  --chart-2: #003580;
+  --chart-3: #a855f7;
+  --chart-4: #ff964f;
+  --chart-5: #22c55e;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 99px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+@layer utilities {
+  .bg-gradient-primary-to-secondary {
+    background: var(--gradient-primary-to-secondary);
+  }
+  .bg-gradient-primary-to-secondary-2 {
+    background: var(--gradient-primary-to-secondary-2);
+  }
+  .bg-gradient-chat-header {
+    background: var(--gradient-chat-header);
+  }
+  .rounded-chat-header {
+    border-radius: 30px 30px 0px 0px;
+  }
+  .scrollbar-hide {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom rotating border animation */
+  .animate-border-spin {
+    animation: border-spin 5s linear infinite;
+  }
+
+  /* Custom gradient shift animation */
+  .animate-gradient-shift {
+    animation: gradient-shift 8s linear infinite;
+  }
+
+  /* Border drawing animation using pseudo-elements for smooth path drawing */
+  .border-draw-animation {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .border-draw-animation::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid var(--base-color, #3b82f6);
+    border-radius: inherit;
+    clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+    animation: border-draw-path 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes border-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Border drawing animation - draws from left to right around the perimeter */
+@keyframes border-sequence {
+  /* Start with no border */
+  0% {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+
+  /* Draw top border from left to right */
+  25% {
+    border-top-color: var(--base-color, #3b82f6);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+
+  /* Draw right border from top to bottom */
+  50% {
+    border-top-color: var(--base-color, #3b82f6);
+    border-right-color: var(--base-color, #3b82f6);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+
+  /* Draw bottom border from right to left */
+  75% {
+    border-top-color: var(--base-color, #3b82f6);
+    border-right-color: var(--base-color, #3b82f6);
+    border-bottom-color: var(--base-color, #3b82f6);
+    border-left-color: transparent;
+  }
+
+  /* Complete the rectangle - draw left border from bottom to top */
+  100% {
+    border-top-color: var(--base-color, #3b82f6);
+    border-right-color: var(--base-color, #3b82f6);
+    border-bottom-color: var(--base-color, #3b82f6);
+    border-left-color: var(--base-color, #3b82f6);
+  }
+}
+
+/* Border drawing with clip-path for smoother effect */
+@keyframes border-draw-smooth {
+  0% {
+    clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+  }
+  25% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  }
+  50% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+@keyframes border-draw-path {
+  0% {
+    clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+  }
+
+  /* Draw top border */
+  25% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  }
+
+  /* Draw right border */
+  50% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%);
+  }
+
+  /* Draw bottom border */
+  75% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  /* Complete the rectangle */
+  100% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+.no-visible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-visible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Toast Icon Color Customization */
+.toast-success svg {
+  color: #43a047 !important;
+  fill: #43a047 !important;
+}
+
+.toast-error svg {
+  color: #d20405 !important;
+  fill: #d20405 !important;
+}
+
+.toast-warning svg {
+  color: #fbbf24 !important;
+  fill: #fbbf24 !important;
+}
+
+.toast-info svg {
+  color: #60a5fa !important;
+  fill: #60a5fa !important;
+}
+
+.toast-loading svg {
+  color: #60a5fa !important;
+  fill: #60a5fa !important;
 }
