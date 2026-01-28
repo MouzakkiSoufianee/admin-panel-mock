@@ -47,7 +47,7 @@ export default function Sidebar() {
           <Button
             size="icon"
             variant="ghost"
-            className="border-border absolute top-2 -right-4 z-50 size-8 p-1"
+            className="border-border absolute top-2 -right-4 z-50 size-8 p-1 bg-white/20 hover:bg-white/30 transition-colors"
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
             {isCollapsed ? (
@@ -61,20 +61,19 @@ export default function Sidebar() {
               <React.Fragment key={label}>
                 <Tooltip key={isCollapsed ? 'collapsed' : 'expanded'}>
                   <TooltipTrigger asChild>
-                    <Button
-                      asChild
-                      variant="ghost"
-                      className={`flex items-center justify-start w-full rounded-lg py-2 text-base font-medium transition-colors ${isCollapsed ? 'px-0' : 'gap-3 px-3'}
-                        ${pathname === href
-                          ? "bg-white text-[#7B6EF6] shadow-sm"
-                          : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
-                        }`}
-                    >
-                      <Link href={href} className="contents">
+                    <Link href={href} className="block w-full">
+                      <Button
+                        variant="ghost"
+                        className={`flex items-center justify-start w-full rounded-lg py-2 text-base font-medium transition-colors ${isCollapsed ? 'px-0' : 'gap-3 px-3'}
+                          ${pathname === href
+                            ? "bg-white text-[#7B6EF6] shadow-sm"
+                            : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
+                          }`}
+                      >
                         <Icon className="w-5 h-5" />
                         {!isCollapsed && <span className="text-left">{label}</span>}
-                      </Link>
-                    </Button>
+                      </Button>
+                    </Link>
                   </TooltipTrigger>
                   {isCollapsed && (
                     <TooltipContent side="right">
@@ -93,16 +92,20 @@ export default function Sidebar() {
             {bottomItems.map(({ label, icon: Icon, href }) => (
               <Tooltip key={label + (isCollapsed ? '-collapsed' : '-expanded')}>
                 <TooltipTrigger asChild>
-                  <Button
-                    asChild
-                    variant="ghost"
-                    className={`flex items-center justify-start w-full rounded-lg py-2 text-base font-medium text-white/80 hover:bg-white/10 ${isCollapsed ? 'px-0' : 'gap-3 px-3'}`}
-                  >
-                    <Link href={href} className="contents">
+                  <Link href={href} className="block w-full">
+                    <Button
+                      variant="ghost"
+                        className={`flex items-center justify-start w-full rounded-lg py-2 text-base font-medium transition-colors ${isCollapsed ? 'px-0' : 'gap-3 px-3'}
+                      ${pathname === href
+                            ? "bg-white text-[#A855F7] shadow-sm"
+                            : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
+                          }`}
+                      
+                    >
                       <Icon className="w-5 h-5" />
                       {!isCollapsed && <span className="text-left">{label}</span>}
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 </TooltipTrigger>
                 {isCollapsed && (
                   <TooltipContent side="right">
