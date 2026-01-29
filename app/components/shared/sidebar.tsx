@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import Link from "next/link";
 import { LogOut, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -9,29 +9,105 @@ import { Avatar, AvatarFallback } from "../ui/avatar";
 import { usePathname } from "next/navigation";
 import { FolderHeart, LayoutDashboard, LandPlot, BriefcaseBusiness, Users, ChartSpline, CalendarDays, Bell, LayoutPanelLeft, Store } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/app/components/ui/tooltip";
-export default function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+
+
+interface SidebarProps {
+  isCollapsed: boolean;
+  onToggle: () => void;
+}
+export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
+
   const pathname = usePathname();
   // Example nav items (replace with your actual navItems and bottomItems arrays)
-  const navItems = [
-    { label: "Favorite", icon: FolderHeart, href: "/favorite" },
 
-    { label: "Dashboard", icon: LayoutDashboard, href: "/" },
-    { label: "Arenas", icon: LandPlot, href: "/arenas" },
-    { label: "Projects", icon: BriefcaseBusiness, href: "/projects" },
-    { label: "Employees", icon: Users, href: "/employees" },
-    { label: "Global Analytics", icon: ChartSpline, href: "/globalAnalytics" },
-    { label: "Events", icon: CalendarDays, href: "/events" },
-    { label: "Notifications", icon: Bell, href: "/notifications" },
-
-
+  type NavItem = {
+    label: string;
+    icon: ReactNode;
+    href: string;
+  };
+  const navItems: NavItem[] = [
+    {
+      label: "Favorite",
+      icon: <FolderHeart />,
+      href: "/favorite"
+    },
+    {
+      label: "Dashboard",
+      icon: (
+        <Image
+          src="/assets/logos/dashboard-icon.svg"
+          alt="Dashboard"
+          width={20}
+          height={20}
+          style={{ display: "inline-block" }}
+        />
+      ),
+      href: "/"
+    },
+    {
+      label: "Arenas",
+      icon: (
+        <Image
+          src="/assets/logos/arenas-icon.svg"
+          alt="Arenas"
+          width={20}
+          height={20}
+          style={{ display: "inline-block" }}
+        />
+      ),
+      href: "/arenas"
+    },
+    {
+      label: "Projects", icon: <Image
+        src="/assets/logos/projects.svg"
+        alt="Projects"
+        width={20}
+        height={20}
+        style={{ display: "inline-block" }}
+      />,
+      href: "/projects"
+    },
+    {
+      label: "Employees", icon: <Users />,
+      href: "/employees"
+    },
+    { label: "Global Analytics", icon: <ChartSpline />, href: "/globalAnalytics" },
+    {
+      label: "Events", icon: <Image
+        src="/assets/logos/solar_calendar-outline.svg"
+        alt="Events"
+        width={20}
+        height={20}
+        style={{ display: "inline-block" }}
+      />,
+      href: "/events"
+    },
+    { label: "Notifications", icon: <Bell />, href: "/notifications" },
   ];
+
+  
   const bottomItems = [
-    { label: "MyApp", icon: LayoutPanelLeft, href: "/myapp" },
-    { label: "MarketPlace", icon: Store, href: "/marketplace" },
+    {
+      label: "MyApp", icon: <Image
+        src="/assets/logos/myapp.svg"
+        alt="MyApp"
+        width={20}
+        height={20}
+        style={{ display: "inline-block" }}
+      />, href: "/myapp"
+    },
+    {
+      label: "MarketPlace", icon: <Image
+        src="/assets/logos/marketplace.svg"
+        alt="MarketPlace "
+        width={20}
+        height={20}
+        style={{ display: "inline-block" }}
+      />, href: "/marketplace"
+    },
   ];
   return (
-    <aside className={`flex h-screen ${isCollapsed ? 'w-20' : 'w-64'} flex-col justify-between bg-[#7B6EF6] py-6 px-4 text-white shadow-lg rounded-none transition-all duration-300 relative`}>
+    <aside className={`flex h-screen ${isCollapsed ? 'w-20' : 'w-64'} flex-col justify-between bg-[#7B6EF6] py-6 px-4 text-white shadow-lg rounded-lg transition-all duration-300 relative`}>
       <div className="flex flex-col h-full">
         <div className="relative">
           <div className={`flex items-center px-2 ${isCollapsed ? 'justify-start' : ''} mb-12`}>
@@ -39,8 +115,7 @@ export default function Sidebar() {
               <Image src="/assets/logos/short-gamitool-logo.svg" alt="GamiTool Logo" width={40} height={40} />
             ) : (
               <>
-                <span className="font-bold text-3xl">Gami</span>
-                <span className="font-light ml-0 text-3xl">Panel</span>
+                <Image src="/assets/logos/GamiPanel-logo.svg" alt="GamiPanel Logo" width={140} height={40} />
               </>
             )}
           </div>
@@ -48,7 +123,7 @@ export default function Sidebar() {
             size="icon"
             variant="ghost"
             className="border-border absolute top-2 -right-4 z-50 size-8 p-1 bg-white/20 hover:bg-white/30 transition-colors"
-            onClick={() => setIsCollapsed(!isCollapsed)}
+            onClick={onToggle}
           >
             {isCollapsed ? (
               <ChevronRight className="text-white size-5 transition-transform" />
@@ -70,7 +145,7 @@ export default function Sidebar() {
                             : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
                           }`}
                       >
-                        <Icon className="w-5 h-5" />
+                        {Icon}
                         {!isCollapsed && <span className="text-left">{label}</span>}
                       </Button>
                     </Link>
@@ -95,14 +170,14 @@ export default function Sidebar() {
                   <Link href={href} className="block w-full">
                     <Button
                       variant="ghost"
-                        className={`flex items-center justify-start w-full rounded-lg py-2 text-base font-medium transition-colors ${isCollapsed ? 'px-0' : 'gap-3 px-3'}
+                      className={`flex items-center justify-start w-full rounded-lg py-2 text-base font-medium transition-colors ${isCollapsed ? 'px-0' : 'gap-3 px-3'}
                       ${pathname === href
-                            ? "bg-white text-[#A855F7] shadow-sm"
-                            : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
-                          }`}
-                      
+                          ? "bg-white text-[#A855F7] shadow-sm"
+                          : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
+                        }`}
+
                     >
-                      <Icon className="w-5 h-5" />
+                      {Icon}
                       {!isCollapsed && <span className="text-left">{label}</span>}
                     </Button>
                   </Link>
