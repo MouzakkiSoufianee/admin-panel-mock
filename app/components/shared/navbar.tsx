@@ -56,9 +56,8 @@ export default function Navbar({ isSidebarCollapsed, pageTitle = "Dashboard", or
           <Bell className="w-5 h-5 text-gray-500" />
           <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">6</span>
         </Button>
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/assets/logos/user-avatar.jpg" alt="User" />
-          <AvatarFallback>JD</AvatarFallback>
+        <Avatar className=" h-9 w-9"> 
+          <AvatarImage src="/assets/logos/Mask group.svg" alt="Organization" />
         </Avatar>
       </div>
     </header>

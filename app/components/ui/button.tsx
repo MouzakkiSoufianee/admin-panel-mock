@@ -1,7 +1,7 @@
 import * as React from "react"
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "destructive" | "outline" | "link" | "ghost" | "gradient"
+  variant?: "primary" | "secondary" | "destructive" | "outline" | "link" | "ghost" | "gradient" | "black"
   size?: "default" | "sm" | "xl" | "icon"
   asChild?: boolean
 }
@@ -14,6 +14,8 @@ const variantClasses: Record<string, string> = {
   link: "bg-white text-primary hover:underline-offset-4 hover:underline",
   ghost: "text-foreground hover:bg-light-gray",
   gradient: "bg-gradient-primary-to-secondary text-white shadow-md shadow-lg",
+  black: "bg-black text-white hover:bg-gray-900 shadow-md hover:shadow-lg",
+  lightgreen: "bg-[#8BC194] text-white hover:bg-green-600 shadow-md hover:shadow-lg",
 }
 
 const sizeClasses: Record<string, string> = {

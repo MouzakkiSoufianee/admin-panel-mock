@@ -42,7 +42,7 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
           style={{ display: "inline-block" }}
         />
       ),
-      href: "/"
+      href: "/dashboard"
     },
     {
       label: "Arenas",
@@ -122,13 +122,13 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
           <Button
             size="icon"
             variant="ghost"
-            className="border-border absolute top-2 -right-4 z-50 size-8 p-1 bg-white/20 hover:bg-white/30 transition-colors"
+            className="border border-gray-300 shadow-sm absolute top-6 -right-8 z-50 size-8 p-1 bg-white/80 hover:bg-white transition-colors"
             onClick={onToggle}
           >
             {isCollapsed ? (
-              <ChevronRight className="text-white size-5 transition-transform" />
+              <ChevronRight className="text-[#7B6EF6] size-5 transition-transform" />
             ) : (
-              <ChevronLeft className="text-white size-5 transition-transform" />
+              <ChevronLeft className="text-[#7B6EF6] size-5 transition-transform" />
             )}
           </Button>
           <nav className="flex flex-col gap-2">
@@ -175,7 +175,6 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                           ? "bg-white text-[#A855F7] shadow-sm"
                           : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
                         }`}
-
                     >
                       {Icon}
                       {!isCollapsed && <span className="text-left">{label}</span>}

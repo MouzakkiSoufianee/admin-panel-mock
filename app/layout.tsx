@@ -39,7 +39,7 @@ export default function RootLayout({
           isCollapsed={isSidebarCollapsed}
         onToggle={() => setIsSidebarCollapsed((prev) => !prev)}/>
           <Navbar isSidebarCollapsed={isSidebarCollapsed} />
-          <main className="flex-1 overflow-auto">{children}</main>
+          <main className="flex-1 overflow-auto pt-16">{children}</main>
         </div>
       </body>
     </html>
