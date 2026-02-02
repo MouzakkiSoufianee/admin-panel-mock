@@ -12,26 +12,12 @@ const stats = [
 
 export default function QuickStats() {
     return (
-        <Card className="col-span-2 flex flex-col gap-4 " style={{
-            background: "#fff",
-            borderRadius: 16,
-            padding: 20,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-        }}>
+        <Card className="col-span-2 flex flex-col gap-4 bg-white rounded-2xl p-5 shadow-sm"
+        >
             <div className="flex items-center justify-between">
-                <div className="text-l text-gray-400">Quick statistics</div>
+                <div className="text-sm text-gray-400">Quick statistics</div>
                 <div
-                    style={{
-                        background: "#f5f7ff",
-                        borderRadius: 20,
-                        padding: 5,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: 40,
-                        width: 48,
-                        marginLeft: 12,
-                    }}
+                    className="bg-[#f5f7ff] rounded-full p-1.5 flex items-center justify-center h-10 w-12"
                 >
                     <Image
                         src="/assets/logos/Activity.svg"
@@ -42,14 +28,14 @@ export default function QuickStats() {
                     />
                 </div>
             </div>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
                 {stats.map((stat, idx) => (
                     <div
                         key={stat.label}
-                        className="flex flex-col items-center py-2 rounded-2xl bg-white  border border-black/5 shadow-sm"
+                        className="flex flex-col items-center py-2 px-1 rounded-2xl bg-white border border-black/5 shadow-sm"
                     >
-                        <div className="text-xl font-bold text-[#7FBA7A]">{stat.value}</div>
-                        <div className="text-xs text-gray-500">{stat.label}</div>
+                        <div className="text-lg sm:text-xl font-bold text-[#7FBA7A]">{stat.value}</div>
+                        <div className="text-xs text-gray-500 text-center">{stat.label}</div>
                     </div>
                 ))}
             </div>

@@ -35,7 +35,7 @@ const recentProjects = [
 
 export default function RecentProjects() {
   return (
-    <Card className="col-span-3 p-5">
+    <Card className="p-5">
       <div className="flex justify-between items-center mb-4">
         <div className="font-semibold">Recent Projects</div>
         <Button variant="link" size="sm">View all projects</Button>

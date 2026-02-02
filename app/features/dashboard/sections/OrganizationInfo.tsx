@@ -11,50 +11,41 @@ const mockOrg = {
 
 export default function OrganizationInfo() {
     return (
-        <Card className="col-span-1 flex flex-col items-center  "
-            style={{
-            background: "#fff",
-            borderRadius: 16,
-            padding: 20,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-            // Removed fixed height and width for natural sizing
-            }}
+        <Card className="col-span-1 flex flex-col items-center bg-white rounded-2xl w-full p-4 sm:p-5 md:p-6 shadow-sm"
         >
-            <div className="w-full mb-4 relative ">
-                <div className="flex items-center justify-between">
-                    <div>
-                        
-                        <div className="text-l text-gray-400 ">Organization  information</div>
-                        
-                        <div className="text-l font-bold text-black">{mockOrg.name}</div>
-                        <div className="h-4" /> {/* Small vertical space */}
+            <div className="w-full  relative">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex-1">
+                        <div className="text-sm text-gray-400">Organization information</div>
+                        <div className="text-lg sm:text-xl font-bold text-black">{mockOrg.name}</div>
+                        <div className="h-4" />
                         <div className="text-xs text-gray-400">Created: {mockOrg.created}</div>
                         <div className="text-xs text-gray-400">Last updated: {mockOrg.updated}</div>
+                        <div className="h-4"></div>
+                    </div>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[rgba(206,206,254,0.5)] flex-shrink-0">
+                        <Image
+                            src="/assets/logos/organization-info-icon.svg"
+                            alt="Organization Info"
+                            width={24}
+                            height={24}
+                        />
                     </div>
                 </div>
-                <div className="absolute top-0 right-0 flex items-center justify-center w-10 h-10 rounded-full bg-[rgba(206,206,254,0.5)]">
-                    <Image
-                        src="/assets/logos/organization-info-icon.svg"
-                        alt="Organization Info"
-                        width={24}
-                        height={24}
-                        className="text-gray-400"
-                    />
-                </div>
             </div>
-         <div className="w-82 h-55 flex flex-col items-center  bg-[#CECEFE] rounded-lg p-4">
+            <div className="w-full flex flex-col items-center bg-[#CECEFE] rounded-lg p-3 sm:p-4 ">
                 <Image
                     src="/assets/logos/Business Analysis.svg"
                     alt="Settings"
                     width={80}
                     height={80}
-                    className="w-40 h-20 mb-2"
+                    className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 mb-2 sm:mb-3"
                     priority
                 />
-                <div className="text-xl text-black mb-2 text-center w-full">Configure organization settings</div>
+                <div className="text-sm sm:text-base md:text-lg text-black mb-3 text-center w-full">Configure organization settings</div>
                 <Button
                     variant="black"
-                    className="mx-auto h-10 w-35"
+                    className="h-10 w-28 sm:w-32"
                 >
                     Config
                 </Button>
