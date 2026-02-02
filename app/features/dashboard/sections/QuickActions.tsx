@@ -12,7 +12,7 @@ export default function QuickActions() {
       borderRadius: 16,
       padding: 20,
       boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-      height: 160,
+      minHeight: 160,
       }}
     >
       <div className="flex items-center mb-6 justify-between w-full">
@@ -39,26 +39,26 @@ export default function QuickActions() {
           />
         </div>
       </div>
-      <div className="flex gap-6 w-full">
+      <div className="flex flex-col 2xl:flex-row items-center gap-3 2xl:gap-6 w-full">
       <Button
         variant="lightgreen"
-        className="flex-1 flex items-center justify-center gap-4 rounded-2xl bg-white shadow-none"
-        style={{ height: 56 }}
+        className="w-full 2xl:flex-1 flex items-center justify-center gap-2 rounded-2xl bg-white shadow-none"
+        style={{ height: 44 }}
       >
-        <span className="flex items-center justify-center rounded-full bg-[#8BC194] mr-6">
-        <Plus className="text-white w-10 h-14" />
+        <span className="flex items-center justify-center rounded-full bg-[#8BC194] mr-2 flex-shrink-0">
+        <Plus className="text-white w-6 h-6" />
         </span>
-        <span className="text-xl text-[#181945] font-normal">Add project</span>
+        <span className="text-base text-[#181945] font-normal truncate">Add project</span>
       </Button>
       <Button
         variant="outline"
-        className="flex-1 flex items-center justify-center gap-4 rounded-2xl bg-white shadow-none"
-        style={{ height: 56 }}
+        className="w-full 2xl:flex-1 flex items-center justify-center gap-2 rounded-2xl bg-white shadow-none"
+        style={{ height: 44 }}
       >
-        <span className="flex items-center justify-center rounded-full bg-[#7B7BFF] mr-6">
-        <Plus className="text-white w-10 h-14" />
+        <span className="flex items-center justify-center rounded-full bg-[#7B7BFF] mr-2 flex-shrink-0">
+        <Plus className="text-white w-6 h-6" />
         </span>
-        <span className="text-xl text-[#181945] font-normal">Add Organization</span>
+        <span className="text-base text-[#181945] font-normal truncate">Add Organization</span>
       </Button>
       </div>
     </Card>

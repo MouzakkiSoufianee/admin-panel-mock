@@ -25,7 +25,7 @@ export default function ChatbotConfig() {
                     <p className="text-gray-600 my-3 text-xs sm:text-sm leading-relaxed">
                         Set up chatbot responses to provide intelligent, role-based assistance and enhance user engagement across GamiTool.
                     </p>
-                    <Button className="bg-[#7FBA7A] hover:bg-[#6fa86d]">
+                    <Button className="bg-[#7FBA7A] hover:bg-[#6fa86d]" variant="lightgreen">
                         Config chatbot
                     </Button>
                 </div>
