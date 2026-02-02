@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Button } from "@/app/components/ui/button";
 import { Card } from "@/app/components/ui/card";
@@ -25,7 +26,11 @@ export default function ChatbotConfig() {
                     <p className="text-gray-600 my-3 text-xs sm:text-sm leading-relaxed">
                         Set up chatbot responses to provide intelligent, role-based assistance and enhance user engagement across GamiTool.
                     </p>
-                    <Button className="bg-[#7FBA7A] hover:bg-[#6fa86d]" variant="lightgreen">
+                    <Button 
+                        className="bg-[#7FBA7A] hover:bg-[#6fa86d]" 
+                        variant="lightgreen"
+                        onClick={() => window.location.href = '/configurationChatBot'}
+                    >
                         Config chatbot
                     </Button>
                 </div>
