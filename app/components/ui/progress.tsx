@@ -7,7 +7,7 @@ export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
   ({ value, className = "", ...props }, ref) => {
     return (
-      <div className={`w-full bg-gray-200 rounded-full overflow-hidden ${className}`} ref={ref} {...props}>
+      <div className={`w-full bg-gray-200 rounded-full overflow-hidden h-2 ${className}`} ref={ref} {...props}>
         <div
           className="bg-primary h-full transition-all duration-300"
           style={{ width: `${value}%` }}

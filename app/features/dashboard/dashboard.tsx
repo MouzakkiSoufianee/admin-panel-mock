@@ -27,6 +27,7 @@ export default function Dashboard() {
                     <div className="flex flex-col gap-4 md:gap-6">
                         <QuickActions />
                         <RecentActivity />
+
                     </div>
                 </div>
 
