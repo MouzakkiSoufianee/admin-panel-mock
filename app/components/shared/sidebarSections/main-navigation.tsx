@@ -18,6 +18,7 @@ interface MainNavigationProps {
 
 export function MainNavigation({ items, isCollapsed }: MainNavigationProps) {
   const pathname = usePathname();
+  const isSelected = (href: string) => pathname === href;
 
   return (
     <nav className="flex flex-col gap-2">
@@ -32,12 +33,23 @@ export function MainNavigation({ items, isCollapsed }: MainNavigationProps) {
                     isCollapsed ? 'px-0' : 'gap-3 px-3'
                   }
                     ${
-                      pathname === href
+                      isSelected(href)
                         ? "bg-white text-[#7B6EF6] shadow-sm"
                         : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
                     }`}
                 >
-                  <span className={isLogoIcon && pathname === href ? "[&>img]:brightness-0  [&>img]:saturate-200 [&>img]:hue-rotate-[60deg] [&>img]:opacity-100" : ""}>
+                  <span 
+                    className={`${
+                      isLogoIcon 
+                        ? isSelected(href)
+                          ? "[&>img]:brightness-0 [&>img]:saturate-200 [&>img]:hue-rotate-[60deg] [&>img]:opacity-100"
+                          : "[&>img]:brightness-0 [&>img]:saturate-100 [&>img]:hue-rotate-0 [&>img]:opacity-60"
+                        : ""
+                    }`}
+                    style={{
+                      color: isLogoIcon ? 'inherit' : (isSelected(href) ? '#575abe' : '#9ca3af')
+                    }}
+                  >
                     {Icon}
                   </span>
                   {!isCollapsed && <span className="text-left">{label}</span>}

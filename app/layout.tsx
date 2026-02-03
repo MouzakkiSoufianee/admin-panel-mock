@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Sidebar from "./components/shared/sidebar"
 import Navbar from "./components/shared/navbar";
-import React, {use, useState} from "react";
+import React, { useState } from "react";
+import { PageTitleProvider } from "./contexts/page-title-context";
 import "./globals.css";
 
 
@@ -34,13 +35,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-screen">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-50 h-screen`}>
-        <div className="flex h-screen">
-          <Sidebar 
-          isCollapsed={isSidebarCollapsed}
-        onToggle={() => setIsSidebarCollapsed((prev) => !prev)}/>
-          <Navbar isSidebarCollapsed={isSidebarCollapsed} />
-          <main className="flex-1 overflow-auto pt-16">{children}</main>
-        </div>
+        <PageTitleProvider>
+          <div className="flex h-screen">
+            <Sidebar 
+            isCollapsed={isSidebarCollapsed}
+          onToggle={() => setIsSidebarCollapsed((prev) => !prev)}/>
+            <Navbar isSidebarCollapsed={isSidebarCollapsed} />
+            <main className="flex-1 overflow-auto pt-16">{children}</main>
+          </div>
+        </PageTitleProvider>
       </body>
     </html>
   );

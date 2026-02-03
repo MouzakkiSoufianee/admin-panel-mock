@@ -17,6 +17,7 @@ interface BottomNavigationProps {
 
 export function BottomNavigation({ items, isCollapsed }: BottomNavigationProps) {
   const pathname = usePathname();
+  const isSelected = (href: string) => pathname === href;
 
   return (
     <nav className="flex flex-col gap-3 mb-4">
@@ -30,12 +31,18 @@ export function BottomNavigation({ items, isCollapsed }: BottomNavigationProps) 
                   isCollapsed ? 'px-0' : 'gap-3 px-3'
                 }
                 ${
-                  pathname === href
+                  isSelected(href)
                     ? "bg-white text-[#A855F7] shadow-sm"
                     : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
                 }`}
               >
-                {Icon}
+                <span className={`${
+                  isSelected(href)
+                    ? "[&>img]:brightness-0 [&>img]:saturate-200 [&>img]:hue-rotate-[60deg] [&>img]:opacity-100"
+                    : "[&>img]:brightness-0 [&>img]:saturate-100 [&>img]:hue-rotate-0 [&>img]:opacity-60"
+                }`} style={{color: isSelected(href) ? '#575abe' : '#9ca3af'}}>
+                  {Icon}
+                </span>
                 {!isCollapsed && <span className="text-left">{label}</span>}
               </Button>
             </Link>

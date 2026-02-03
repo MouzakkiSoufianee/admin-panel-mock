@@ -19,7 +19,7 @@ export const Toggle: React.FC<ToggleProps> = ({
                 onClick={() => onToggle(!enabled)}
                 disabled={disabled}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    enabled ? 'bg-blue-600' : 'bg-gray-300'
+                    enabled ? 'bg-[#575abe]' : 'bg-gray-300'
                 } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             >
                 <span

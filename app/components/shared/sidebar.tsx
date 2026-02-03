@@ -4,11 +4,11 @@ import React, { ReactNode } from "react";
 import { FolderHeart, Users, ChartSpline, Bell, Store } from "lucide-react";
 import Image from "next/image";
 
-import { LogoSection } from "./sidebar/logo-section";
-import { CollapseButton } from "./sidebar/collapse-button";
-import { MainNavigation } from "./sidebar/main-navigation";
-import { BottomNavigation } from "./sidebar/bottom-navigation";
-import { UserProfileSection } from "./sidebar/user-profile-section";
+import { LogoSection } from "./sidebarSections/logo-section";
+import { CollapseButton } from "./sidebarSections/collapse-button";
+import { MainNavigation } from "./sidebarSections/main-navigation";
+import { BottomNavigation } from "./sidebarSections/bottom-navigation";
+import { UserProfileSection } from "./sidebarSections/user-profile-section";
 
 
 interface SidebarProps {

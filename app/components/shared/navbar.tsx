@@ -5,14 +5,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../ui/select";
+import { usePageTitle } from "../../contexts/page-title-context";
 
 interface NavbarProps {
   isSidebarCollapsed: boolean;
-  pageTitle?: string;
   orgName?: string;
 }
 
-export default function Navbar({ isSidebarCollapsed, pageTitle = "Dashboard", orgName = "ORG name" }: NavbarProps) {
+export default function Navbar({ isSidebarCollapsed, orgName = "ORG name" }: NavbarProps) {
+  const { pageTitle } = usePageTitle();
   return (
     
     <header

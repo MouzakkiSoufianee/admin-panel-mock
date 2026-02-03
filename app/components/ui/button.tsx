@@ -1,7 +1,7 @@
 import * as React from "react"
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "destructive" | "outline" | "link" | "ghost" | "gradient" | "black" | "lightgreen" | "purple_link"
+  variant?: "primary" | "secondary" | "destructive" | "outline" | "link" | "ghost" | "gradient" | "black" | "lightgreen" | "purple_link" | "outlined_card"
   size?: "default" | "sm" | "xl" | "icon"
   asChild?: boolean
 }
@@ -16,7 +16,8 @@ const variantClasses: Record<string, string> = {
   gradient: "bg-gradient-primary-to-secondary text-white shadow-md shadow-lg",
   black: "bg-black text-white hover:bg-gray-900 shadow-md hover:shadow-lg",
   lightgreen: "bg-[#8BC194] text-white hover:bg-green-600 shadow-md hover:shadow-lg",
-  purple_link: "bg-white text-[#181945] hover:underline-offset-4 hover:underline",
+  purple_link: "bg-white text-[#575abe] hover:underline-offset-4 hover:underline",
+  outlined_card : "bg-white  text-foreground border border-gray-200 rounded-lg hover:border-gray-400 hover:shadow-md transition-colors focus:outline-none",
 }
 
 const sizeClasses: Record<string, string> = {
