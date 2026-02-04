@@ -287,7 +287,7 @@ export default function ChatbotConfigPage() {
                                     {/* Helpful */}
                                     <Button
                                         onClick={() => setSelectedPersonality('helpful')}
-                                        variant="outlined_card"
+                                        variant="outlined_card_onHover"
                                         className={`flex justify-start p-4 text-left transition-all h-full w-full !border-2 ${selectedPersonality === 'helpful'
                                             ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
                                             : '!border-gray-200 hover:!border-gray-400'
@@ -307,7 +307,7 @@ export default function ChatbotConfigPage() {
                                     {/* Concise */}
                                     <Button
                                         onClick={() => setSelectedPersonality('concise')}
-                                        variant="outlined_card"
+                                        variant="outlined_card_onHover"
                                         className={`flex  justify-start p-4 text-left transition-all h-full w-full !border-2 ${selectedPersonality === 'concise'
                                             ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
                                             : '!border-gray-200 hover:!border-gray-400'
@@ -324,7 +324,7 @@ export default function ChatbotConfigPage() {
                                     {/* Curious */}
                                     <Button
                                         onClick={() => setSelectedPersonality('curious')}
-                                        variant="outlined_card"
+                                        variant="outlined_card_onHover"
                                         className={`flex justify-start p-4 text-left transition-all h-full w-full !border-2 ${selectedPersonality === 'curious'
                                             ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
                                             : '!border-gray-200 hover:!border-gray-400'

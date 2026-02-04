@@ -67,7 +67,7 @@ export function QuickActions({ actions = DEFAULT_ACTIONS, title = "Quick Actions
         {actions.map((action, idx) => (
           <Button
             key={idx}
-            variant={idx === 0 ? "lightgreen" : "outline"}
+            variant={idx === 0 ? "lightgreen" : "purple"}
             className="w-full 2xl:flex-1 flex items-center justify-center gap-2 rounded-2xl bg-white shadow-none"
             style={{ height: 44 }}
             onClick={action.onClick}

@@ -35,17 +35,17 @@ export function MainNavigation({ items, isCollapsed }: MainNavigationProps) {
                     ${
                       isSelected(href)
                         ? "bg-white shadow-sm"
-                        : "bg-[#7B6EF6] hover:bg-white/10"
+                        : "bg-[#716DF0] hover:bg-white/10"
                     }`}
                 >
                   <span 
                     style={{
-                      color: isSelected(href) ? '#575abe' : 'white',
+                      color: isSelected(href) ? '#716DF0' : 'white',
                     }}
                     className="flex items-center gap-3"
                   >
                     {isLogoIcon && React.isValidElement(Icon)
-                      ? React.cloneElement(Icon, { color: isSelected(href) ? '#575abe' : 'white' } as any)
+                      ? React.cloneElement(Icon, { color: isSelected(href) ? '#716DF0' : 'white' } as any)
                       : Icon}
                     {!isCollapsed && <span>{label}</span>}
                   </span>

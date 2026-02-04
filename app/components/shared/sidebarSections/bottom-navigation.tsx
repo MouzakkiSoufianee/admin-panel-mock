@@ -8,6 +8,7 @@ interface NavItem {
   label: string;
   icon: ReactNode;
   href: string;
+  isLogoIcon?: boolean;
 }
 
 interface BottomNavigationProps {
@@ -21,7 +22,7 @@ export function BottomNavigation({ items, isCollapsed }: BottomNavigationProps) 
 
   return (
     <nav className="flex flex-col gap-3 mb-4">
-      {items.map(({ label, icon: Icon, href }) => (
+      {items.map(({ label, icon: Icon, href, isLogoIcon }) => (
         <Tooltip key={label + (isCollapsed ? '-collapsed' : '-expanded')}>
           <TooltipTrigger asChild>
             <Link href={href} className="block w-full">
@@ -32,18 +33,21 @@ export function BottomNavigation({ items, isCollapsed }: BottomNavigationProps) 
                 }
                 ${
                   isSelected(href)
-                    ? "bg-white text-[#A855F7] shadow-sm"
-                    : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
+                    ? "bg-white shadow-sm"
+                    : "bg-[#716DF0] hover:bg-white/10"
                 }`}
               >
-                <span className={`${
-                  isSelected(href)
-                    ? "[&>img]:brightness-0 [&>img]:saturate-200 [&>img]:hue-rotate-[60deg] [&>img]:opacity-100"
-                    : "[&>img]:brightness-0 [&>img]:saturate-100 [&>img]:hue-rotate-0 [&>img]:opacity-60"
-                }`} style={{color: isSelected(href) ? '#575abe' : '#9ca3af'}}>
-                  {Icon}
+                <span 
+                  style={{
+                    color: isSelected(href) ? '#716DF0' : 'white',
+                  }}
+                  className="flex items-center gap-3"
+                >
+                  {isLogoIcon && React.isValidElement(Icon)
+                    ? React.cloneElement(Icon, { color: isSelected(href) ? '#716DF0' : 'white' } as any)
+                    : Icon}
+                  {!isCollapsed && <span>{label}</span>}
                 </span>
-                {!isCollapsed && <span className="text-left">{label}</span>}
               </Button>
             </Link>
           </TooltipTrigger>

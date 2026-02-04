@@ -1,13 +1,13 @@
 import * as React from "react"
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "destructive" | "outline" | "link" | "ghost" | "gradient" | "black" | "lightgreen" | "purple_link" | "outlined_card"
+  variant?: "primary" | "secondary" | "destructive" | "outline" | "link" | "ghost" | "gradient" | "black" | "lightgreen" | "purple_link" | "outlined_card_onHover" | "outlined_card" | "purple"
   size?: "default" | "sm" | "xl" | "icon"
   asChild?: boolean
 }
 
 const variantClasses: Record<string, string> = {
-  primary: "bg-[#575abe] text-white border-primary hover:bg-primary/90 shadow-md hover:shadow-lg border",
+  primary: "bg-[#716DF0] text-white border-primary hover:bg-primary/90 shadow-md hover:shadow-lg border",
   secondary: "bg-light-gray text-foreground hover:bg-gray-200",
   destructive: "bg-red text-white border-red hover:bg-red-600 shadow-md hover:shadow-lg border",
   outline: "bg-white text-primary border-primary hover:bg-primary hover:text-white hover:shadow-lg border",
@@ -16,9 +16,10 @@ const variantClasses: Record<string, string> = {
   gradient: "bg-gradient-primary-to-secondary text-white shadow-md shadow-lg",
   black: "bg-black text-white hover:bg-gray-900 shadow-md hover:shadow-lg",
   lightgreen: "bg-[#8BC194] text-white hover:bg-green-600 shadow-md hover:shadow-lg",
+  purple : "bg-[##716DF0] text-white hover:bg-purple-700 shadow-md hover:shadow-lg",
   purple_link: "bg-white text-[#575abe] hover:underline-offset-4 hover:underline",
-  outlined_card : "bg-white  text-foreground border border-gray-200 rounded-lg hover:border-gray-400 hover:shadow-md transition-colors focus:outline-none",
-  
+  outlined_card_onHover : "bg-white text-foreground border border-gray-300 rounded-lg hover:border-gray-600 hover:shadow-md transition-colors focus:outline-none",
+  outlined_card : "bg-white text-foreground border border-gray-300 rounded-lg transition-colors focus:outline-none",
 }
 
 const sizeClasses: Record<string, string> = {
@@ -33,7 +34,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp: any = asChild ? "span" : "button"
     return (
       <Comp
-        className={`inline-flex cursor-pointer items-center justify-center border border-transparent gap-2 whitespace-nowrap font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-primary/50 disabled:pointer-events-none disabled:opacity-40 ${variantClasses[variant] || ""} ${sizeClasses[size] || ""} ${className}`}
+        className={`inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-primary/50 disabled:pointer-events-none disabled:opacity-40 ${variantClasses[variant] || ""} ${sizeClasses[size] || ""} ${className}`}
         ref={ref}
         {...props}
       />

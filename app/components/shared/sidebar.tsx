@@ -16,7 +16,7 @@ import {
   EventsIcon,
   MyAppIcon,
   MarketplaceIcon,
-} from "../icons";
+} from "./sidebarSections/icons";
 
 export interface NavItem {
   label: string;
@@ -56,7 +56,7 @@ export function Sidebar({
     {
       label: "Arenas",
       icon: <ArenasIcon color="white" />,
-      href: "/arenas",
+      href: "/arena",
       isLogoIcon: true
     },
     {
@@ -102,7 +102,7 @@ export function Sidebar({
   };
 
   return (
-    <aside className={`flex h-screen ${isCollapsed ? 'w-20' : 'w-64'} flex-col justify-between bg-[#7B6EF6] py-6 px-4 text-white shadow-lg rounded-lg transition-all duration-300 relative`}>
+    <aside className={`flex h-screen ${isCollapsed ? 'w-20' : 'w-64'} flex-col justify-between bg-[#716DF0] py-6 px-4 text-white shadow-lg rounded-lg transition-all duration-300 relative`}>
       <div className="flex flex-col h-full">
         <div className="relative">
           {/* Logo Section */}

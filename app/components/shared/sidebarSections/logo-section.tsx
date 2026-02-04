@@ -9,7 +9,7 @@ export function LogoSection({ isCollapsed }: LogoSectionProps) {
     <div className={`flex items-center px-2 ${isCollapsed ? 'justify-start' : ''} mb-12`}>
       {isCollapsed ? (
         <Image
-          src="/assets/logos/short-gamitool-logo.svg"
+          src="/assets/logos/AdminP-logo-collapsed.svg"
           alt="GamiTool Logo"
           width={40}
           height={40}
