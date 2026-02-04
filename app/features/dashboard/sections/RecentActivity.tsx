@@ -3,7 +3,17 @@ import { Button } from "@/app/components/ui/button";
 import {  Plus } from "lucide-react";
 import Image from "next/image";
 
-const activities = [
+export interface Activity {
+  text: string;
+  time: string;
+}
+
+interface RecentActivityProps {
+  activities?: Activity[];
+  title?: string;
+}
+
+const DEFAULT_ACTIVITIES: Activity[] = [
   { text: "New Project Created: Marketing Onboarding", time: "2 hours ago" },
   { text: "New event Created : Lorem ipsum", time: "4 hours ago" },
   { text: "Journey Edited: First Week by Mark Davis", time: "Yesterday" },
@@ -13,12 +23,12 @@ const activities = [
   { text: "Journey Edited: First Week by Mark Davis", time: "Yesterday" },
 ];
 
-export default function RecentActivity() {
+export function RecentActivity({ activities = DEFAULT_ACTIVITIES, title = "Recent activity" }: RecentActivityProps) {
   return (
     <Card className="col-span-1 p-5">
       <div className="flex items-center gap-2 mb-4">
       <Image src="/assets/logos/recentActivity.svg" alt="Recent Activity" width={20} height={20} className="w-5 h-5" />
-      <div className="font-semibold text-black">Recent activity</div>
+      <div className="font-semibold text-black">{title}</div>
       </div>
       <div className="flex flex-col gap-3">
       {activities.map((act, idx) => (

@@ -34,25 +34,21 @@ export function MainNavigation({ items, isCollapsed }: MainNavigationProps) {
                   }
                     ${
                       isSelected(href)
-                        ? "bg-white text-[#7B6EF6] shadow-sm"
-                        : "bg-[#7B6EF6] text-white/80 hover:bg-white/10"
+                        ? "bg-white shadow-sm"
+                        : "bg-[#7B6EF6] hover:bg-white/10"
                     }`}
                 >
                   <span 
-                    className={`${
-                      isLogoIcon 
-                        ? isSelected(href)
-                          ? "[&>img]:brightness-0 [&>img]:saturate-200 [&>img]:hue-rotate-[60deg] [&>img]:opacity-100"
-                          : "[&>img]:brightness-0 [&>img]:saturate-100 [&>img]:hue-rotate-0 [&>img]:opacity-60"
-                        : ""
-                    }`}
                     style={{
-                      color: isLogoIcon ? 'inherit' : (isSelected(href) ? '#575abe' : '#9ca3af')
+                      color: isSelected(href) ? '#575abe' : 'white',
                     }}
+                    className="flex items-center gap-3"
                   >
-                    {Icon}
+                    {isLogoIcon && React.isValidElement(Icon)
+                      ? React.cloneElement(Icon, { color: isSelected(href) ? '#575abe' : 'white' } as any)
+                      : Icon}
+                    {!isCollapsed && <span>{label}</span>}
                   </span>
-                  {!isCollapsed && <span className="text-left">{label}</span>}
                 </Button>
               </Link>
             </TooltipTrigger>

@@ -15,46 +15,37 @@ import { Heart, Zap, MessageSquarePlus, EllipsisVertical, Send } from 'lucide-re
 import { usePageTitle } from '@/app/contexts/page-title-context';
 
 interface ChatMessage {
-  id: string;
-  type: 'bot' | 'user';
-  content: string;
+    id: string;
+    type: 'bot' | 'user';
+    content: string;
 }
 
 const MOCK_MESSAGES: ChatMessage[] = [
-  {
-    id: '1',
-    type: 'bot',
-    content: "Hello! I'm here to help. What can I do for you today?"
-  },
-  {
-    id: '2',
-    type: 'user',
-    content: "Can you help me find the Q3 analytics report?"
-  },
-  {
-    id: '3',
-    type: 'bot',
-    content: "Absolutely! I've located the Q3 Analytics in your Projects/Marketing/Reports folder. Shall I open it for you?"
-  },
-  {
-    id: '4',
-    type: 'user',
-    content: "Yes, please! That would be great."
-  },
-  {
-    id: '5',
-    type: 'bot',
-    content: "Perfect! Opening the report now. You'll see all the metrics and KPIs for Q3."
-  }
+    {
+        id: '1',
+        type: 'bot',
+        content: "Hello! I'm here to help. What can I do for you today?"
+    },
+    {
+        id: '2',
+        type: 'user',
+        content: "Can you help me find the Q3 analytics report?"
+    },
+    {
+        id: '3',
+        type: 'bot',
+        content: "Absolutely! I've located the Q3 Analytics in your Projects/Marketing/Reports folder. Shall I open it for you?"
+    }
+
 ];
 
 export default function ChatbotConfigPage() {
     const { setPageTitle } = usePageTitle();
-    
+
     useEffect(() => {
         setPageTitle('Config Chatbot');
     }, [setPageTitle]);
-    
+
     const [chatbotName, setChatbotName] = useState('Rocksey');
     const [primaryLanguage, setPrimaryLanguage] = useState('English (US)');
     const [description, setDescription] = useState('');
@@ -297,58 +288,54 @@ export default function ChatbotConfigPage() {
                                     <Button
                                         onClick={() => setSelectedPersonality('helpful')}
                                         variant="outlined_card"
-                                        className={`flex justify-start p-4 text-left transition-all h-full w-full !border-2 ${
-                                            selectedPersonality === 'helpful'
-                                                ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
-                                                : '!border-gray-200 hover:!border-gray-400'
-                                        }`}
+                                        className={`flex justify-start p-4 text-left transition-all h-full w-full !border-2 ${selectedPersonality === 'helpful'
+                                            ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
+                                            : '!border-gray-200 hover:!border-gray-400'
+                                            }`}
                                     >
-                                        <div className="flex gap-3 items-start">
-                                            <Heart size={20} className="flex-shrink-0 mt-0.5" style={{color: selectedPersonality === 'helpful' ? '#575abe' : '#9ca3af'}} />
-                                            <div>
-                                                <h3 className="font-semibold text-sm mb-1">Helpful</h3>
-                                                <p className="text-xs text-gray-600">Focuses on solving problems quickly.</p>
-                                            </div>
+                                        <div className="flex flex-col gap-3 items-start">
+                                            <Heart size={20} className="flex-shrink-0 mt-0.5" style={{ color: selectedPersonality === 'helpful' ? '#575abe' : '#9ca3af' }} />
+
+                                            <h3 className="font-semibold text-sm mb-1">Helpful</h3>
+                                            <p className="text-xs text-gray-600">Focuses on solving problems quickly.</p>
+
                                         </div>
-                                        
-                                        
+
+
                                     </Button>
 
                                     {/* Concise */}
                                     <Button
                                         onClick={() => setSelectedPersonality('concise')}
                                         variant="outlined_card"
-                                        className={`flex justify-start p-4 text-left transition-all h-full w-full !border-2 ${
-                                            selectedPersonality === 'concise'
-                                                ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
-                                                : '!border-gray-200 hover:!border-gray-400'
-                                        }`}
+                                        className={`flex  justify-start p-4 text-left transition-all h-full w-full !border-2 ${selectedPersonality === 'concise'
+                                            ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
+                                            : '!border-gray-200 hover:!border-gray-400'
+                                            }`}
                                     >
-                                        <div className="flex gap-3 items-start">
-                                            <Zap size={20} className="flex-shrink-0 mt-0.5" style={{color: selectedPersonality === 'concise' ? '#575abe' : '#9ca3af'}} />
-                                            <div>
-                                                <h3 className="font-semibold text-sm mb-1">Concise</h3>
-                                                <p className="text-xs text-gray-600">Short punchy responses.</p>
-                                            </div>
+                                        <div className="flex flex-col gap-3 items-start">
+                                            <Zap size={20} className="flex-shrink-0" style={{ color: selectedPersonality === 'concise' ? '#575abe' : '#9ca3af' }} />
+                                            <h3 className="font-semibold text-sm mb-1">Concise</h3>
+                                            <p className="text-xs text-gray-600">Short punchy responses.</p>
                                         </div>
                                     </Button>
+
 
                                     {/* Curious */}
                                     <Button
                                         onClick={() => setSelectedPersonality('curious')}
                                         variant="outlined_card"
-                                        className={`flex justify-start p-4 text-left transition-all h-full w-full !border-2 ${
-                                            selectedPersonality === 'curious'
-                                                ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
-                                                : '!border-gray-200 hover:!border-gray-400'
-                                        }`}
+                                        className={`flex justify-start p-4 text-left transition-all h-full w-full !border-2 ${selectedPersonality === 'curious'
+                                            ? '!border-[#575abe] !bg-[rgba(206,206,254,0.5)] shadow-md shadow-blue-100/50'
+                                            : '!border-gray-200 hover:!border-gray-400'
+                                            }`}
                                     >
-                                        <div className="flex gap-3 items-start">
-                                            <MessageSquarePlus size={20} className="flex-shrink-0 mt-0.5" style={{color: selectedPersonality === 'curious' ? '#575abe' : '#9ca3af'}} />
-                                            <div>
-                                                <h3 className="font-semibold text-sm mb-1">Curious</h3>
-                                                <p className="text-xs text-gray-600">Asks follow-up questions.</p>
-                                            </div>
+                                        <div className="flex flex-col gap-3 items-start">
+                                            <MessageSquarePlus size={20} className="flex-shrink-0 mt-0.5" style={{ color: selectedPersonality === 'curious' ? '#575abe' : '#9ca3af' }} />
+
+                                            <h3 className="font-semibold text-sm mb-1">Curious</h3>
+                                            <p className="text-xs text-gray-600">Asks follow-up questions.</p>
+
                                         </div>
                                     </Button>
                                 </div>
@@ -358,7 +345,7 @@ export default function ChatbotConfigPage() {
                         {/* Action Buttons */}
                         <div className="flex gap-4 justify-end">
                             <Button variant="secondary">Cancel</Button>
-                            <Button variant="primary" onClick={handleSave}>
+                            <Button variant="primary" className='bg-[#575abe]' onClick={handleSave}>
                                 Save Changes
                             </Button>
                         </div>
@@ -366,17 +353,20 @@ export default function ChatbotConfigPage() {
                     </div>
 
                     <div className="col-span-1 row-span-3 ">
-                        <Card className="col-span-1 p-6 h-fit w-full sticky rounded-t-3/4 top-6 ">
+                        <Card className="col-span-1 p-6 h-fit w-full sticky rounded-t-3/4 top-6 md:max-h-[calc(100vh-100px)] overflow-y-auto">
                             <div className="bg-gray-100 -m-6 mb-4 px-6 py-4 rounded-t-3/4">
                                 <div className="flex items-center justify-between gap-3 mb-4">
-                                    <div className="flex items-center gap-3">
-                                        <Image
-                                            src="/assets/logos/chatbot-logo.svg"
-                                            alt="chatbot"
-                                            width={24}
-                                            height={24}
-                                            style={{ objectFit: "contain" }}
-                                        />
+                                    <div className="flex items-center  gap-3">
+                                        <div className="flex justify-center items-center w-8 h-8 rounded-full bg-[rgba(206,206,254,0.5)]">
+                                            <Image
+                                                src="/assets/logos/chatbot-logo.svg"
+                                                alt="chatbot"
+                                                width={24}
+                                                height={24}
+                                                style={{ objectFit: "contain" }}
+                                            />
+                                        </div>
+
                                         <div className="flex flex-col gap-1">
                                             <h2 className="text-lg font-semibold">Live Preview</h2>
                                             <span className="flex items-center gap-2 text-xs text-green-600">
@@ -385,55 +375,53 @@ export default function ChatbotConfigPage() {
                                             </span>
                                         </div>
                                     </div>
-                                    <Button 
-                  variant="ghost" 
-                  size="icon"
-                  
-                >
-                  <EllipsisVertical className="w-4 h-4" />
-                </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+
+                                    >
+                                        <EllipsisVertical className="w-4 h-4" />
+                                    </Button>
                                 </div>
                             </div>
-                            <div className="rounded-lg p-4 h-150 flex flex-col">
+                            <div className="rounded-lg p-4 h-90 flex flex-col">
                                 {/* Chat Messages */}
                                 <div className="flex-1 overflow-y-auto mb-4 space-y-4">
-                                  {MOCK_MESSAGES.map((message) => (
-                                    <div
-                                      key={message.id}
-                                      className={`flex gap-3 ${
-                                        message.type === 'user' ? 'justify-end' : 'justify-start'
-                                      }`}
-                                    >
-                                      {message.type === 'bot' && (
-                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex-shrink-0 flex items-center justify-center text-white text-xs font-semibold">
-                                          {chatbotName?.charAt(0) || 'B'}
+                                    {MOCK_MESSAGES.map((message) => (
+                                        <div
+                                            key={message.id}
+                                            className={`flex gap-3 ${message.type === 'user' ? 'justify-end' : 'justify-start'
+                                                }`}
+                                        >
+                                            {message.type === 'bot' && (
+                                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex-shrink-0 flex items-center justify-center text-white text-xs font-semibold">
+                                                    {chatbotName?.charAt(0) || 'B'}
+                                                </div>
+                                            )}
+                                            <div
+                                                className={`rounded-2xl px-4 py-2 max-w-xs ${message.type === 'bot'
+                                                    ? 'bg-gray-100 text-gray-800'
+                                                    : 'bg-[#575abe] text-white'
+                                                    }`}
+                                            >
+                                                <p className="text-sm">{message.content}</p>
+                                            </div>
+                                            {message.type === 'user' && (
+                                                <div className="w-8 h-8 rounded-full bg-gray-300 flex-shrink-0"></div>
+                                            )}
                                         </div>
-                                      )}
-                                      <div
-                                        className={`rounded-2xl px-4 py-2 max-w-xs ${
-                                          message.type === 'bot'
-                                            ? 'bg-gray-100 text-gray-800'
-                                            : 'bg-[#575abe] text-white'
-                                        }`}
-                                      >
-                                        <p className="text-sm">{message.content}</p>
-                                      </div>
-                                      {message.type === 'user' && (
-                                        <div className="w-8 h-8 rounded-full bg-gray-300 flex-shrink-0"></div>
-                                      )}
-                                    </div>
-                                  ))}
+                                    ))}
                                 </div>
-                                
+
                                 {/* Input Area */}
                                 <div className="flex gap-2 items-center">
-                                    <Input type="text" placeholder="Type a message..." className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm outline-none"  />
+                                    <Input type="text" placeholder="Type a message..." className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm outline-none" />
                                     <Button variant="primary" size="xl" className="flex-shrink-0 rounded-full ">
                                         <Send />
                                     </Button>
                                 </div>
                             </div>
-                                  
+
                         </Card>
                     </div>
 

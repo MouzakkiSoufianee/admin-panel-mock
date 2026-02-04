@@ -7,7 +7,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const variantClasses: Record<string, string> = {
-  primary: "bg-primary text-white border-primary hover:bg-primary/90 shadow-md hover:shadow-lg border",
+  primary: "bg-[#575abe] text-white border-primary hover:bg-primary/90 shadow-md hover:shadow-lg border",
   secondary: "bg-light-gray text-foreground hover:bg-gray-200",
   destructive: "bg-red text-white border-red hover:bg-red-600 shadow-md hover:shadow-lg border",
   outline: "bg-white text-primary border-primary hover:bg-primary hover:text-white hover:shadow-lg border",
@@ -18,6 +18,7 @@ const variantClasses: Record<string, string> = {
   lightgreen: "bg-[#8BC194] text-white hover:bg-green-600 shadow-md hover:shadow-lg",
   purple_link: "bg-white text-[#575abe] hover:underline-offset-4 hover:underline",
   outlined_card : "bg-white  text-foreground border border-gray-200 rounded-lg hover:border-gray-400 hover:shadow-md transition-colors focus:outline-none",
+  
 }
 
 const sizeClasses: Record<string, string> = {

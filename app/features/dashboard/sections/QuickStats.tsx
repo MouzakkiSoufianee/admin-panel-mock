@@ -2,7 +2,18 @@ import { Card } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
 import { MessageCircle } from "lucide-react";
 import Image from "next/image";
-const stats = [
+
+export interface Stat {
+  label: string;
+  value: string | number;
+}
+
+interface QuickStatsProps {
+  stats?: Stat[];
+  title?: string;
+}
+
+const DEFAULT_STATS: Stat[] = [
     { label: "Active Projects", value: 1 },
     { label: "Total Employees", value: 300 },
     { label: "Installed Games", value: 50 },
@@ -10,12 +21,12 @@ const stats = [
     { label: "Completion Rate", value: "80%" },
 ];
 
-export default function QuickStats() {
+export function QuickStats({ stats = DEFAULT_STATS, title = "Quick statistics" }: QuickStatsProps) {
     return (
         <Card className="col-span-2 flex flex-col gap-4 bg-white rounded-2xl p-5 shadow-sm"
         >
             <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-400">Quick statistics</div>
+                <div className="text-sm text-gray-400">{title}</div>
                 <div
                     className="bg-[#f5f7ff] rounded-full p-1.5 flex items-center justify-center h-10 w-12"
                 >

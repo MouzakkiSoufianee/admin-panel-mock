@@ -1,7 +1,7 @@
 "use client"
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Sidebar from "./components/shared/sidebar"
+import { Sidebar } from "./components/shared/sidebar"
 import Navbar from "./components/shared/navbar";
 import React, { useState } from "react";
 import { PageTitleProvider } from "./contexts/page-title-context";

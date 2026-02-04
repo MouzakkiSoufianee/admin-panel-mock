@@ -9,7 +9,24 @@ import { Badge } from "@/app/components/ui/badge";
 import { Progress } from "@/app/components/ui/progress";
 import { Settings, EllipsisVertical, SquarePen, Trash2 } from "lucide-react";
 import Image from "next/image";
-const recentProjects = [
+
+export interface Project {
+  name: string;
+  created: string;
+  stage: string;
+  avatars: number;
+  status: string;
+  progress: number;
+}
+
+interface RecentProjectsProps {
+  projects?: Project[];
+  title?: string;
+  onEdit?: (projectName: string) => void;
+  onDelete?: (projectName: string) => void;
+}
+
+const DEFAULT_PROJECTS: Project[] = [
   {
     name: "Rock your star",
     created: "5 days ago",
@@ -36,28 +53,39 @@ const recentProjects = [
   },
 ];
 
-export default function RecentProjects() {
+export function RecentProjects({ 
+  projects = DEFAULT_PROJECTS,
+  title = "Recent Projects",
+  onEdit,
+  onDelete
+}: RecentProjectsProps) {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
   const handleEdit = (projectName: string) => {
-    console.log("Edit:", projectName);
-    // Add your edit logic here
+    if (onEdit) {
+      onEdit(projectName);
+    } else {
+      console.log("Edit:", projectName);
+    }
   };
 
   const handleDelete = (projectName: string) => {
-    console.log("Delete:", projectName);
-    // Add your delete logic here
+    if (onDelete) {
+      onDelete(projectName);
+    } else {
+      console.log("Delete:", projectName);
+    }
   };
 
   return (
     <Card className="p-5">
       <div className="flex justify-between items-center mb-4">
-        <div className="font-bold text-black">Recent Projects</div>
+        <div className="font-bold text-black">{title}</div>
         <Button variant="purple_link" size="sm">View all projects</Button>
         
       </div>
       <div className="flex flex-col gap-4">
-        {recentProjects.map((proj, idx) => (
+        {projects.map((proj, idx) => (
           <div 
             key={idx} 
             className={`relative bg-gray-50 rounded-lg transition-all duration-300 `}

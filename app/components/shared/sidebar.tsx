@@ -1,7 +1,7 @@
 
 "use client";
 import React, { ReactNode } from "react";
-import { FolderHeart, Users, ChartSpline, Bell, Store } from "lucide-react";
+import { FolderHeart, Users, ChartSpline, Bell } from "lucide-react";
 import Image from "next/image";
 
 import { LogoSection } from "./sidebarSections/logo-section";
@@ -9,21 +9,39 @@ import { CollapseButton } from "./sidebarSections/collapse-button";
 import { MainNavigation } from "./sidebarSections/main-navigation";
 import { BottomNavigation } from "./sidebarSections/bottom-navigation";
 import { UserProfileSection } from "./sidebarSections/user-profile-section";
+import {
+  DashboardIcon,
+  ArenasIcon,
+  ProjectsIcon,
+  EventsIcon,
+  MyAppIcon,
+  MarketplaceIcon,
+} from "../icons";
 
+export interface NavItem {
+  label: string;
+  icon: ReactNode;
+  href: string;
+  isLogoIcon?: boolean;
+}
 
 interface SidebarProps {
   isCollapsed: boolean;
   onToggle: () => void;
+  navItems?: NavItem[];
+  bottomItems?: NavItem[];
+  onLogout?: () => void;
 }
 
-export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
-  type NavItem = {
-    label: string;
-    icon: ReactNode;
-    href: string;
-    isLogoIcon?: boolean;
-  };
-  const navItems: NavItem[] = [
+export function Sidebar({ 
+  isCollapsed, 
+  onToggle,
+  navItems,
+  bottomItems,
+  onLogout
+}: SidebarProps) {
+  // Default nav items if not provided
+  const defaultNavItems: NavItem[] = [
     {
       label: "Favorite",
       icon: <FolderHeart />,
@@ -31,86 +49,58 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
     },
     {
       label: "Dashboard",
-      icon: (
-        <Image
-          src="/assets/logos/dashboard-icon.svg"
-          alt="Dashboard"
-          width={20}
-          height={20}
-          style={{ display: "inline-block" }}
-        />
-      ),
+      icon: <DashboardIcon color="blue" />,
       href: "/dashboard",
       isLogoIcon: true
     },
     {
       label: "Arenas",
-      icon: (
-        <Image
-          src="/assets/logos/arenas-icon.svg"
-          alt="Arenas"
-          width={20}
-          height={20}
-          style={{ display: "inline-block" }}
-        />
-      ),
+      icon: <ArenasIcon color="white" />,
       href: "/arenas",
       isLogoIcon: true
     },
     {
-      label: "Projects", icon: <Image
-        src="/assets/logos/projects.svg"
-        alt="Projects"
-        width={20}
-        height={20}
-        style={{ display: "inline-block" }}
-      />,
+      label: "Projects",
+      icon: <ProjectsIcon color="white" />,
       href: "/projects",
       isLogoIcon: true
     },
     {
       label: "Employees", icon: <Users />,
-      href: "/employees"
+      href: "/employees",
+      isLogoIcon: true
     },
-    { label: "Global Analytics", icon: <ChartSpline />, href: "/globalAnalytics" },
+    { label: "Global Analytics", icon: <ChartSpline />, href: "/globalAnalytics", isLogoIcon: true },
     {
-      label: "Events", icon: <Image
-        src="/assets/logos/solar_calendar-outline.svg"
-        alt="Events"
-        width={20}
-        height={20}
-        style={{ display: "inline-block" }}
-      />,
-      href: "/events"
+      label: "Events",
+      icon: <EventsIcon color="white" />,
+      href: "/events",
+      isLogoIcon: true
     },
-    { label: "Notifications", icon: <Bell />, href: "/notifications" },
+    { label: "Notifications", icon: <Bell />, href: "/notifications", isLogoIcon: true },
   ];
 
-  
-  const bottomItems = [
+  const defaultBottomItems: NavItem[] = [
     {
-      label: "MyApp", icon: <Image
-        src="/assets/logos/myapp.svg"
-        alt="MyApp"
-        width={20}
-        height={20}
-        style={{ display: "inline-block" }}
-      />, href: "/myapp"
+      label: "MyApp",
+      icon: <MyAppIcon color="white" />,
+      href: "/myapp",
+      isLogoIcon: true
     },
     {
-      label: "MarketPlace", icon: <Image
-        src="/assets/logos/marketplace.svg"
-        alt="MarketPlace "
-        width={20}
-        height={20}
-        style={{ display: "inline-block" }}
-      />, href: "/marketplace"
+      label: "MarketPlace",
+      icon: <MarketplaceIcon color="white" />,
+      href: "/marketplace",
+      isLogoIcon: true
     },
   ];
 
   const handleLogout = () => {
-    // TODO: implement logout logic
+    if (onLogout) {
+      onLogout();
+    }
   };
+
   return (
     <aside className={`flex h-screen ${isCollapsed ? 'w-20' : 'w-64'} flex-col justify-between bg-[#7B6EF6] py-6 px-4 text-white shadow-lg rounded-lg transition-all duration-300 relative`}>
       <div className="flex flex-col h-full">
@@ -122,7 +112,7 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
           <CollapseButton isCollapsed={isCollapsed} onToggle={onToggle} />
 
           {/* Main Navigation */}
-          <MainNavigation items={navItems} isCollapsed={isCollapsed} />
+          <MainNavigation items={navItems || defaultNavItems} isCollapsed={isCollapsed} />
         </div>
 
         {/* Spacer */}
@@ -131,11 +121,12 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
         {/* Bottom Section */}
         <div>
           {/* Bottom Navigation */}
-          <BottomNavigation items={bottomItems} isCollapsed={isCollapsed} />
+          <BottomNavigation items={bottomItems || defaultBottomItems} isCollapsed={isCollapsed} />
 
           {/* User Profile Section */}
           <UserProfileSection isCollapsed={isCollapsed} onLogout={handleLogout} />
         </div>
       </div>
     </aside>
-  );}
+  );
+}

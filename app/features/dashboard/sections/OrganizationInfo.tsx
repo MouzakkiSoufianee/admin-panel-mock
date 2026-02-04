@@ -2,14 +2,24 @@ import { Card } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
 
-// Mock data (replace with API data when available)
-const mockOrg = {
+export interface Organization {
+    name: string;
+    created: string;
+    updated: string;
+}
+
+interface OrganizationInfoProps {
+    org?: Organization;
+    onConfig?: () => void;
+}
+
+const DEFAULT_ORG: Organization = {
     name: "Organization Name",
     created: "Jul 15, 2025",
     updated: "Jan 30, 2026",
 };
 
-export default function OrganizationInfo() {
+export function OrganizationInfo({ org = DEFAULT_ORG, onConfig }: OrganizationInfoProps) {
     return (
         <Card className="col-span-1 flex flex-col items-center bg-white rounded-2xl w-full p-4 sm:p-5 md:p-6 shadow-sm"
         >
@@ -17,10 +27,10 @@ export default function OrganizationInfo() {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex-1">
                         <div className="text-sm text-gray-400">Organization information</div>
-                        <div className="text-lg sm:text-xl font-bold text-black">{mockOrg.name}</div>
+                        <div className="text-lg sm:text-xl font-bold text-black">{org.name}</div>
                         <div className="h-4" />
-                        <div className="text-xs text-gray-400">Created: {mockOrg.created}</div>
-                        <div className="text-xs text-gray-400">Last updated: {mockOrg.updated}</div>
+                        <div className="text-xs text-gray-400">Created: {org.created}</div>
+                        <div className="text-xs text-gray-400">Last updated: {org.updated}</div>
                         <div className="h-4"></div>
                     </div>
                     <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[rgba(206,206,254,0.5)] flex-shrink-0">
@@ -46,6 +56,7 @@ export default function OrganizationInfo() {
                 <Button
                     variant="black"
                     className="h-10 w-28 sm:w-32"
+                    onClick={onConfig}
                 >
                     Config
                 </Button>
