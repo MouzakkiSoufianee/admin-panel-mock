@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect } from "react";
+import { usePageTitle } from "@/app/contexts/page-title-context";
 import { OrganizationInfo, Organization } from "./sections/OrganizationInfo";
 import { QuickStats, Stat } from "./sections/QuickStats";
 import { QuickActions, QuickAction } from "./sections/QuickActions";
@@ -83,8 +87,14 @@ export function Dashboard({
   org = DEFAULT_ORG,
   actions = DEFAULT_ACTIONS,
 }: DashboardProps) {
+  const { setPageTitle } = usePageTitle();
+
+  useEffect(() => {
+    setPageTitle('Dashboard');
+  }, [setPageTitle]);
+
     return (
-        <div className="p-4 sm:p-6 bg-gray-50 min-h-screen">
+        <div className="p-4 sm:p-6 bg-white min-h-screen">
             <h2 className="text-lg text-black font-semibold mb-4">
                 Overview of your organization and recent activity <span role="img" aria-label="wave">👋</span>
             </h2>

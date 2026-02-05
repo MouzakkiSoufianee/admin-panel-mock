@@ -17,7 +17,7 @@ const variantClasses: Record<string, string> = {
   black: "bg-black text-white hover:bg-gray-900 shadow-md hover:shadow-lg",
   lightgreen: "bg-[#8BC194] text-white hover:bg-green-600 shadow-md hover:shadow-lg",
   purple : "bg-[##716DF0] text-white hover:bg-purple-700 shadow-md hover:shadow-lg",
-  purple_link: "bg-white text-[#575abe] hover:underline-offset-4 hover:underline",
+  purple_link: "bg-white text-[#575abe] underline-offset-2 underline",
   outlined_card_onHover : "bg-white text-foreground border border-gray-300 rounded-lg hover:border-gray-600 hover:shadow-md transition-colors focus:outline-none",
   outlined_card : "bg-white text-foreground border border-gray-300 rounded-lg transition-colors focus:outline-none",
 }
