@@ -136,9 +136,13 @@ export function RecentProjects({
               <div className="col-span-2">
                 <Badge variant="default" className="bg-green-300 rounded-full">{proj.status}</Badge>
               </div>
-              <div className="col-span-2">
-                <Progress value={proj.progress} />
-              </div>
+                <div className="col-span-2">
+                  <div className="relative">
+                  <Progress value={proj.progress} />
+                  
+                  </div>
+                  <div className=" text-xs text-[#6B7280] mt-1">{proj.progress}% complete</div>
+                </div>
               <div className="col-span-1 flex justify-end">
                 <Button 
                   variant="ghost" 
