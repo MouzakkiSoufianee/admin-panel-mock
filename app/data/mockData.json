@@ -133,8 +133,95 @@
       "members": ["m5"],
       "difficulty": "Advanced",
       "progress": 10
+    },
+    {
+      "id": "p7",
+      "name": "REST API Development",
+      "description": "Create a robust REST API with Node.js",
+      "status": "In Progress",
+      "createdDate": "Jun 10, 2025",
+      "arenaId": "3",
+      "members": ["m1", "m3", "m6"],
+      "difficulty": "Intermediate",
+      "progress": 75
+    },
+    {
+      "id": "p8",
+      "name": "Database Design",
+      "description": "Learn and implement database design patterns",
+      "status": "Completed",
+      "createdDate": "Jun 15, 2025",
+      "arenaId": "3",
+      "members": ["m3"],
+      "difficulty": "Intermediate",
+      "progress": 100
+    },
+    {
+      "id": "p9",
+      "name": "Authentication System",
+      "description": "Implement secure authentication and authorization",
+      "status": "In Progress",
+      "createdDate": "Jun 20, 2025",
+      "arenaId": "3",
+      "members": ["m1", "m6"],
+      "difficulty": "Intermediate",
+      "progress": 55
+    },
+    {
+      "id": "p10",
+      "name": "React Native App",
+      "description": "Build a cross-platform mobile app",
+      "status": "In Progress",
+      "createdDate": "Sep 05, 2025",
+      "arenaId": "4",
+      "members": ["m4", "m7"],
+      "difficulty": "Advanced",
+      "progress": 40
+    },
+    {
+      "id": "p11",
+      "name": "iOS App",
+      "description": "Develop a native iOS application",
+      "status": "Planning",
+      "createdDate": "Sep 10, 2025",
+      "arenaId": "4",
+      "members": ["m7"],
+      "difficulty": "Advanced",
+      "progress": 5
+    },
+    {
+      "id": "p12",
+      "name": "Docker & Kubernetes",
+      "description": "Containerize and orchestrate applications",
+      "status": "Completed",
+      "createdDate": "Oct 12, 2025",
+      "arenaId": "5",
+      "members": ["m5", "m8"],
+      "difficulty": "Advanced",
+      "progress": 100
+    },
+    {
+      "id": "p13",
+      "name": "Machine Learning Model",
+      "description": "Build and train an ML model",
+      "status": "In Progress",
+      "createdDate": "Nov 01, 2025",
+      "arenaId": "6",
+      "members": ["m6", "m9"],
+      "difficulty": "Advanced",
+      "progress": 35
+    },
+    {
+      "id": "p14",
+      "name": "Data Visualization",
+      "description": "Create interactive data visualizations",
+      "status": "Planning",
+      "createdDate": "Nov 05, 2025",
+      "arenaId": "6",
+      "members": ["m9", "m10"],
+      "difficulty": "Intermediate",
+      "progress": 15
     }
-    
   ],
   "members": [
     {
