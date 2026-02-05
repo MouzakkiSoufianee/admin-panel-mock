@@ -4,10 +4,7 @@
   "installCommand": "pnpm install",
   "framework": "nextjs",
   "env": {
-    "NEXT_PUBLIC_API_URL": {
-      "description": "API URL for the backend",
-      "required": true
-    }
+    "NEXT_PUBLIC_API_URL": "@next-public-api-url"
   },
   "redirects": [],
   "rewrites": [],
