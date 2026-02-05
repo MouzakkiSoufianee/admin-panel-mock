@@ -10,7 +10,7 @@ const variantClasses: Record<string, string> = {
   primary: "bg-[#716DF0] text-white border-primary hover:bg-primary/90 shadow-md hover:shadow-lg border",
   secondary: "bg-light-gray text-foreground hover:bg-gray-200",
   destructive: "bg-red text-white border-red hover:bg-red-600 shadow-md hover:shadow-lg border",
-  outline: "bg-white text-primary border-primary hover:bg-primary hover:text-white hover:shadow-lg border",
+  outline: "bg-white text-[#716DF0] border-[#716DF0] hover:bg-[#716DF0] hover:text-white hover:shadow-lg border",
   link: "bg-white text-primary hover:underline-offset-4 hover:underline",
   ghost: "text-foreground hover:bg-light-gray",
   gradient: "bg-gradient-primary-to-secondary text-white shadow-md shadow-lg",

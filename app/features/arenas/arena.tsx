@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { usePageTitle } from "@/app/contexts/page-title-context";
+import { fetchArenas, fetchStatistics } from "@/app/data/api";
 import { Card } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
 import { Badge } from "@/app/components/ui/badge";
 import { ChevronDown, EllipsisVertical, Plus, Search, Eye, SquarePen } from "lucide-react";
-import Image from "next/image";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
 import { Input } from "@/app/components/ui/input";
 import { EventsIcon, ProjectsIcon } from "@/app/components/shared/sidebarSections/icons";
@@ -27,167 +28,79 @@ interface ArenasProps {
   onDiscover?: (arenaId: string) => void;
 }
 
-const DEFAULT_ARENAS: Arena[] = [
-  {
-    id: "1",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "2",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "3",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "4",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "5",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "6",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "7",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "8",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "9",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "10",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "11",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "12",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "13",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "14",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "15",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-  {
-    id: "16",
-    name: "Rock your start Arena",
-    description: "Arena description here",
-    projectCount: 11,
-    date: "Jul 15, 2025",
-    status: "Active",
-  },
-];
-
 const DEFAULT_BADGES = [
   {
     id: "1",
     label: "Total Arenas",
-    value: 8,
+    value: 0,
     bgColor: "bg-blue-100",
     textColor: "text-blue-600",
   },
   {
     id: "2",
     label: "Total Projects",
-    value: 44,
+    value: 0,
     bgColor: "bg-green-100",
     textColor: "text-green-600",
   },
 ];
 
 export function Arena({
-  arenas = DEFAULT_ARENAS,
+  arenas: initialArenas,
   onEdit,
   onDelete,
   onDiscover,
 }: ArenasProps) {
+  const router = useRouter();
   const { setPageTitle } = usePageTitle();
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [arenas, setArenas] = useState<Arena[]>(initialArenas || []);
+  const [badges, setBadges] = useState(DEFAULT_BADGES);
+  const [isLoading, setIsLoading] = useState(!initialArenas || initialArenas.length === 0);
 
   useEffect(() => {
     setPageTitle('Arenas');
   }, [setPageTitle]);
+
+  // Fetch arenas and statistics from API
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [fetchedArenas, stats] = await Promise.all([
+          fetchArenas(),
+          fetchStatistics(),
+        ]);
+        setArenas(fetchedArenas);
+        setBadges([
+          {
+            id: "1",
+            label: "Total Arenas",
+            value: stats.totalArenas,
+            bgColor: "bg-blue-100",
+            textColor: "text-blue-600",
+          },
+          {
+            id: "2",
+            label: "Total Projects",
+            value: stats.totalProjects,
+            bgColor: "bg-green-100",
+            textColor: "text-green-600",
+          },
+        ]);
+      } catch (error) {
+        console.error('Failed to fetch arenas:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (!initialArenas || initialArenas.length === 0) {
+      loadData();
+    } else {
+      setIsLoading(false);
+    }
+  }, [initialArenas]);
 
   const handleEdit = (arenaId: string) => {
     if (onEdit) {
@@ -215,6 +128,13 @@ export function Arena({
 
   return (
     <div className="p-4 sm:p-6 bg-white min-h-screen">
+      {isLoading ? (
+        <div className="flex items-center justify-center min-h-screen">
+          <p className="text-gray-500">Loading arenas...</p>
+        </div>
+        
+      ) : (
+        <>
       <div className="mb-6 flex justify-between items-center ">
         <h2 className="text-lg text-black font-semibold">
           Overview of your organization and recent activity{" "}
@@ -222,8 +142,9 @@ export function Arena({
             👋
           </span>
         </h2>
-
-      </div>
+        </div>
+        
+      
 
       {/* Filter and Stats Bar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6 items-center">
@@ -252,7 +173,7 @@ export function Arena({
           />
         </div>
         <div className="flex gap-2">
-          {DEFAULT_BADGES.map((badge) => (
+          {badges.map((badge) => (
             <Badge
               key={badge.id}
               variant="default"
@@ -264,7 +185,7 @@ export function Arena({
         </div>
         <div className="ml-auto mr-10">
 
-          <Button variant="primary" className="h-9">
+          <Button variant="primary" className="h-9" onClick={() => router.push('/arenas/create')}>
             <Plus />
             Add Arena
           </Button>
@@ -283,14 +204,14 @@ export function Arena({
             <div
               className={`flex absolute bottom-0 left-0 right-0 w-full flex-row items-center justify-between gap-2 rounded-b-2xl p-3 bg-[#CFCFFF] transition-opacity duration-300 -mt-2`}
             >
-              <Button
+                <Button
                 variant="outline"
-                onClick={() => handleEdit(arena.id)}
+                onClick={() => router.push(`/arenas/update?id=${arena.id}`)}
                 className="text-[#716DF0] hover:bg-blue-200 flex items-center gap-1"
-              >
+                >
                 <SquarePen className="w-4 h-4" />
                 edit
-              </Button>
+                </Button>
               <Button
                 variant="outline"
                 onClick={() => handleDiscover(arena.id)}
@@ -303,19 +224,19 @@ export function Arena({
             </div>
             {/* Main Card Content - slides up when expanded */}
             <Card
-              className={`bg-white rounded-full shadow-md p-4 transition-all duration-300 transform cursor-pointer hover:shadow-lg ${expandedId === arena.id ? "-translate-y-12" : "translate-y-0"
+              className={`bg-white rounded-full shadow-md p-4 transition-all duration-300 transform cursor-pointer hover:shadow-lg h-52 w-auto  flex flex-col ${expandedId === arena.id ? "-translate-y-12" : "translate-y-0"
                 }`}
               onClick={() =>
                 setExpandedId(expandedId === arena.id ? null : arena.id)
               }
             >
               {/* Card Header with title and menu */}
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex justify-between items-start mb-3 flex-shrink-0">
                 <div className="flex-1 pr-2">
                   <h3 className="text-md font-semibold text-[#7570F2] mb-1">
                     {arena.name}
                   </h3>
-                  <p className="text-xs text-gray-500">{arena.description}</p>
+                  <p className="text-xs text-gray-500 line-clamp-2">{arena.description}</p>
                 </div>
                 <Button
                   variant="ghost"
@@ -328,12 +249,10 @@ export function Arena({
                 >
                 </Button>
               </div>
-              <div className="h-10"></div>
-
-
+              <div className="flex-1"></div>
 
               {/* Date */}
-              <div className="flex items-center gap-2 text-xs text-gray-500">
+              <div className="flex items-center gap-2 text-xs text-gray-500 flex-shrink-0">
                 <div className="flex justify-center items-center gap-1 bg-green-100 text-green-700 rounded-full px-2 py-1">
                   <ProjectsIcon color="green" />
                   <span className="text-xs font-medium ">
@@ -349,6 +268,8 @@ export function Arena({
           </div>
         ))}
       </div>
+        </>
+      )}
     </div>
   );
 }
