@@ -14,9 +14,6 @@ const nextConfig: NextConfig = {
   typescript: {
     tsconfigPath: "./tsconfig.json",
   },
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
   headers: async () => {
     return [
       {
