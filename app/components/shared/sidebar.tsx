@@ -56,7 +56,7 @@ export function Sidebar({
     {
       label: "Arenas",
       icon: <ArenasIcon color="white" />,
-      href: "/arena",
+      href: "/arenas",
       isLogoIcon: true
     },
     {

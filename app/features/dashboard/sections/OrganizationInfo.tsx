@@ -21,7 +21,7 @@ const DEFAULT_ORG: Organization = {
 
 export function OrganizationInfo({ org = DEFAULT_ORG, onConfig }: OrganizationInfoProps) {
     return (
-        <Card className="col-span-1 flex flex-col items-center bg-white rounded-2xl w-full p-4 sm:p-5 md:p-6 shadow-sm"
+        <Card className="col-span-1 flex flex-col items-center bg-white rounded-2xl w-full !p-2 sm:p-5 md:p-6 shadow-sm"
         >
             <div className="w-full  relative">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

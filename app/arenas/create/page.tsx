@@ -1,4 +1,4 @@
-import CreateArenaPage from '@/app/features/arenas/arenasCrud/CreateArenaPage';
+import { CreateArenaPage } from '@/app/features/arenas';
 
 export default function CreateArenaRoute() {
   return <CreateArenaPage />;

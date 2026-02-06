@@ -1,0 +1,327 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { usePageTitle } from "@/app/contexts/page-title-context";
+import { fetchProjects, fetchStatistics } from "@/app/data/api";
+import { Card } from "@/app/components/ui/card";
+import { Button } from "@/app/components/ui/button";
+import { Badge } from "@/app/components/ui/badge";
+import { Progress } from "@/app/components/ui/progress";
+import { ChevronDown, Plus, Search, Heart } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
+import { Input } from "@/app/components/ui/input";
+import Image from "next/image";
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  status: "Active" | "Onboarding" | "Engagement" | "Training" | "Completed" | "Unlocked" | "Pre-Onboarding";
+  category?: string;
+  createdDate: string;
+  participantCount?: number;
+  image?: string;
+  isFavorite?: boolean;
+}
+
+interface ProjectsProps {
+  projects?: Project[];
+  onEdit?: (projectId: string) => void;
+  onDelete?: (projectId: string) => void;
+  onViewDetails?: (projectId: string) => void;
+}
+
+const DEFAULT_BADGES = [
+  {
+    id: "1",
+    label: "Active Quests",
+    value: 0,
+    bgColor: "bg-blue-100",
+    textColor: "text-blue-600",
+  },
+  {
+    id: "2",
+    label: "Completed",
+    value: 0,
+    bgColor: "bg-purple-100",
+    textColor: "text-purple-600",
+  },
+];
+
+const STATUS_COLORS: Record<Project["status"], { bg: string; text: string; badge: string }> = {
+  Active: { bg: "bg-blue-100", text: "text-blue-700", badge: "bg-blue-50" },
+  Onboarding: { bg: "bg-purple-100", text: "text-purple-700", badge: "bg-purple-50" },
+  Engagement: { bg: "bg-emerald-100", text: "text-emerald-700", badge: "bg-emerald-50" },
+  Training: { bg: "bg-pink-100", text: "text-pink-700", badge: "bg-pink-50" },
+  Completed: { bg: "bg-pink-100", text: "text-pink-700", badge: "bg-pink-50" },
+  Unlocked: { bg: "bg-emerald-100", text: "text-emerald-700", badge: "bg-emerald-50" },
+  "Pre-Onboarding": { bg: "bg-red-100", text: "text-red-700", badge: "bg-red-50" },
+};
+
+export function Projects({
+  projects: initialProjects,
+  onEdit,
+  onDelete,
+  onViewDetails,
+}: ProjectsProps) {
+  const router = useRouter();
+  const { setPageTitle } = usePageTitle();
+  const [filterDropdown, setFilterDropdown] = useState("All projects");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [projects, setProjects] = useState<Project[]>(initialProjects || []);
+  const [badges, setBadges] = useState(DEFAULT_BADGES);
+  const [isLoading, setIsLoading] = useState(!initialProjects || initialProjects.length === 0);
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    setPageTitle('Projects');
+  }, [setPageTitle]);
+
+  // Fetch projects and statistics from API
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [fetchedProjects, stats] = await Promise.all([
+          fetchProjects(),
+          fetchStatistics(),
+        ]);
+        
+        // Transform API projects to component format
+        const transformedProjects: Project[] = fetchedProjects.map((project: any) => ({
+          id: project.id,
+          name: project.name,
+          description: project.description,
+          status: (project.status as Project["status"]) || "Active",
+          category: project.status,
+          createdDate: project.createdDate,
+          participantCount: project.members?.length || 0,
+        }));
+        
+        setProjects(transformedProjects);
+        const activeProjects = stats.totalProjects - stats.completedProjects;
+        setBadges([
+          {
+            id: "1",
+            label: "Active Quests",
+            value: activeProjects,
+            bgColor: "bg-blue-100",
+            textColor: "text-blue-600",
+          },
+          {
+            id: "2",
+            label: "Completed",
+            value: stats.completedProjects || 0,
+            bgColor: "bg-purple-100",
+            textColor: "text-purple-600",
+          },
+        ]);
+      } catch (error) {
+        console.error('Failed to fetch projects:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (!initialProjects || initialProjects.length === 0) {
+      loadData();
+    } else {
+      setIsLoading(false);
+    }
+  }, [initialProjects]);
+
+  const handleToggleFavorite = (projectId: string) => {
+    setFavorites((prev) => {
+      const newFavorites = new Set(prev);
+      if (newFavorites.has(projectId)) {
+        newFavorites.delete(projectId);
+      } else {
+        newFavorites.add(projectId);
+      }
+      return newFavorites;
+    });
+  };
+
+  const filteredProjects = projects.filter((project) =>
+    project.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return (
+    <div className="p-4 sm:p-6 bg-white min-h-screen">
+      {isLoading ? (
+        <div className="flex items-center justify-center min-h-screen">
+          <p className="text-gray-500">Loading projects...</p>
+        </div>
+      ) : (
+        <>
+          {/* Header */}
+          <div className="mb-6 flex justify-between items-center">
+            <h2 className="text-lg text-black font-semibold">
+              Manage your gamified projects{" "}
+              <span role="img" aria-label="celebration">
+                👏
+              </span>
+            </h2>
+          </div>
+
+          {/* Filter and Stats Bar */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-8 items-center">
+            {/* Filter Dropdowns */}
+            <div className="flex gap-2 items-center flex-wrap">
+              <DropdownMenu onOpenChange={setIsFilterOpen}>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outlined_card" className="flex items-center h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                    {filterDropdown}
+                    <ChevronDown className={`w-4 h-4 mt-0.5 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="text-gray-500" align="start">
+                  <DropdownMenuItem onClick={() => setFilterDropdown("All projects")}>All projects</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setFilterDropdown("Active quests")}>Active quests</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setFilterDropdown("Completed quests")}>Completed quests</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setFilterDropdown("Unlocked quests")}>Unlocked quests</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setFilterDropdown("Drafts")}>Drafts</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outlined_card" className="flex items-center h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                    Newest
+                    <ChevronDown className="w-4 h-4 mt-0.5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="text-gray-500" align="start">
+                  <DropdownMenuItem>Newest</DropdownMenuItem>
+                  <DropdownMenuItem>Oldest</DropdownMenuItem>
+                  <DropdownMenuItem>Most Popular</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outlined_card" className="flex items-center h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                    All arenas
+                    <ChevronDown className="w-4 h-4 mt-0.5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="text-gray-500" align="start">
+                  <DropdownMenuItem>All arenas</DropdownMenuItem>
+                  <DropdownMenuItem>Arena 1</DropdownMenuItem>
+                  <DropdownMenuItem>Arena 2</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+        
+            {/* Search Bar */}
+            <div className="flex-1 max-w-xs relative">
+              <Input
+                type="text"
+                placeholder="Search quest"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+
+            </div>
+
+            {/* Add Project Button */}
+            <div className="ml-auto mr-4">
+              <Button variant="primary" className="h-9" onClick={() => router.push('/projects/create')}>
+                <Plus className="w-4 h-4" />
+                Add project
+              </Button>
+            </div>
+          </div>
+
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {filteredProjects.map((project) => {
+              const colors = STATUS_COLORS[project.status] || STATUS_COLORS["Active"];
+              return (
+                <div key={project.id} className="relative group">
+                  {/* Project Card */}
+                  <Card
+                    className={`${colors.bg} !rounded-4xl shadow-md  !p-0 transition-all !shadow-lg duration-300 transform  cursor-pointer hover:shadow-lg overflow-hidden flex flex-col h-full mr-4`}
+                    onClick={() => onViewDetails?.(project.id)}
+                  >
+                    {/* Image/Icon Area */}
+                    <div className={`${colors.bg} h-32 w-full flex items-center justify-center relative overflow-hidden`}>
+                      {project.image ? (
+                        <Image src={project.image} alt={project.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-4xl">🎯</div>
+                      )}
+                      {/* Status Badge */}
+                      <Badge className="absolute top-3 right-3 text-xs font-medium rounded-full">
+                        {project.status}
+                      </Badge>
+                    </div>
+
+                    {/* Content Area */}
+                    <div className="bg-white p-4 flex flex-col flex-1">
+                      {/* Title and Heart */}
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-sm font-semibold text-gray-800 flex-1 pr-2">
+                          {project.name}
+                        </h3>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleFavorite(project.id);
+                          }}
+                          className="flex-shrink-0"
+                        >
+                          <Heart
+                            className={`w-5 h-5 transition-colors ${
+                              favorites.has(project.id)
+                                ? 'fill-red-500 text-red-500'
+                                : 'text-gray-300 hover:text-red-500'
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-xs text-gray-500 mb-3 line-clamp-2 flex-1">
+                        {project.description}
+                      </p>
+
+                      {/* Tags and Info */}
+                      <div className="space-y-2">
+                        {/* Status Badge and Date */}
+                        <div className="flex justify-between items-center">
+                          <Badge
+                            variant="default"
+                            className={`${colors.badge} ${colors.text} rounded-full text-xs`}
+                          >
+                            {project.status}
+                          </Badge>
+                          <p className="text-xs text-gray-500">{project.createdDate}</p>
+                        </div>
+
+                        {/* Participants Count and Progress Bar */}
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="text-xs text-gray-600">
+                            +{project.participantCount || 0} participants
+                          </p>
+                          <div className="w-16">
+                            <Progress
+                            variant="gradient"
+                              value={Math.min((project.participantCount || 0) * 10, 100)}                      
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}

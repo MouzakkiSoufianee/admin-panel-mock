@@ -3,32 +3,16 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { usePageTitle } from "@/app/contexts/page-title-context";
-import { fetchArenas, fetchStatistics } from "@/app/data/api";
-import { Card } from "@/app/components/ui/card";
+import { arenaService } from "./services/arenaService";
+import { ArenaList } from "./components/ArenaList";
 import { Button } from "@/app/components/ui/button";
 import { Badge } from "@/app/components/ui/badge";
-import { ChevronDown, EllipsisVertical, Plus, Search, Eye, SquarePen } from "lucide-react";
+import { ChevronDown, Plus, Search } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
 import { Input } from "@/app/components/ui/input";
-import { EventsIcon, ProjectsIcon } from "@/app/components/shared/sidebarSections/icons";
+import type { Arena, ArenasProps, Badge as BadgeType } from "./types";
 
-export interface Arena {
-  id: string;
-  name: string;
-  description: string;
-  projectCount: number;
-  date: string;
-  status?: string;
-}
-
-interface ArenasProps {
-  arenas?: Arena[];
-  onEdit?: (arenaId: string) => void;
-  onDelete?: (arenaId: string) => void;
-  onDiscover?: (arenaId: string) => void;
-}
-
-const DEFAULT_BADGES = [
+const DEFAULT_BADGES: BadgeType[] = [
   {
     id: "1",
     label: "Total Arenas",
@@ -53,10 +37,10 @@ export function Arena({
 }: ArenasProps) {
   const router = useRouter();
   const { setPageTitle } = usePageTitle();
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [filterDropdown, setFilterDropdown] = useState("All arenas");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [arenas, setArenas] = useState<Arena[]>(initialArenas || []);
-  const [badges, setBadges] = useState(DEFAULT_BADGES);
+  const [badges, setBadges] = useState<BadgeType[]>(DEFAULT_BADGES);
   const [isLoading, setIsLoading] = useState(!initialArenas || initialArenas.length === 0);
 
   useEffect(() => {
@@ -68,8 +52,8 @@ export function Arena({
     const loadData = async () => {
       try {
         const [fetchedArenas, stats] = await Promise.all([
-          fetchArenas(),
-          fetchStatistics(),
+          arenaService.fetchAllArenas(),
+          arenaService.fetchStatistics(),
         ]);
         setArenas(fetchedArenas);
         setBadges([
@@ -106,7 +90,7 @@ export function Arena({
     if (onEdit) {
       onEdit(arenaId);
     } else {
-      console.log("Edit:", arenaId);
+      router.push(`/arenas/update?id=${arenaId}`);
     }
   };
 
@@ -197,77 +181,11 @@ export function Arena({
         <Button variant="purple_link" className="ml-auto mr-10">view all arenas</Button>
       </div>
       {/* Arenas Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mr-10">
-        {arenas.map((arena) => (
-          <div key={arena.id} className="relative  group">
-            {/* Action Buttons - appears behind the sliding card */}
-            <div
-              className={`flex absolute bottom-0 left-0 right-0 w-full flex-row items-center justify-between gap-2 rounded-b-2xl p-3 bg-[#CFCFFF] transition-opacity duration-300 -mt-2`}
-            >
-                <Button
-                variant="outline"
-                onClick={() => router.push(`/arenas/update?id=${arena.id}`)}
-                className="text-[#716DF0] hover:bg-blue-200 flex items-center gap-1"
-                >
-                <SquarePen className="w-4 h-4" />
-                edit
-                </Button>
-              <Button
-                variant="outline"
-                onClick={() => handleDiscover(arena.id)}
-                className="text-[#716DF0] flex items-center gap-1"
-              >
-                <Eye className="w-4 h-4" />
-                Discover
-
-              </Button>
-            </div>
-            {/* Main Card Content - slides up when expanded */}
-            <Card
-              className={`bg-white rounded-full shadow-md p-4 transition-all duration-300 transform cursor-pointer hover:shadow-lg h-52 w-auto  flex flex-col ${expandedId === arena.id ? "-translate-y-12" : "translate-y-0"
-                }`}
-              onClick={() =>
-                setExpandedId(expandedId === arena.id ? null : arena.id)
-              }
-            >
-              {/* Card Header with title and menu */}
-              <div className="flex justify-between items-start mb-3 flex-shrink-0">
-                <div className="flex-1 pr-2">
-                  <h3 className="text-md font-semibold text-[#7570F2] mb-1">
-                    {arena.name}
-                  </h3>
-                  <p className="text-xs text-gray-500 line-clamp-2">{arena.description}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setExpandedId(expandedId === arena.id ? null : arena.id);
-                  }}
-                  className="flex-shrink-0"
-                >
-                </Button>
-              </div>
-              <div className="flex-1"></div>
-
-              {/* Date */}
-              <div className="flex items-center gap-2 text-xs text-gray-500 flex-shrink-0">
-                <div className="flex justify-center items-center gap-1 bg-green-100 text-green-700 rounded-full px-2 py-1">
-                  <ProjectsIcon color="green" />
-                  <span className="text-xs font-medium ">
-                    {arena.projectCount} Projects
-                  </span>
-                </div>
-                <div className="flex items-center gap-1 ml-auto bg-gray-100 rounded-full px-2 py-1">
-                  <EventsIcon color="gray" />
-                  <span>{arena.date}</span>
-                </div>
-              </div>
-            </Card>
-          </div>
-        ))}
-      </div>
+      <ArenaList
+        arenas={arenas}
+        onEdit={handleEdit}
+        onDiscover={handleDiscover}
+      />
         </>
       )}
     </div>

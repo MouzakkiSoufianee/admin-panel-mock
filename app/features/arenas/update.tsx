@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { usePageTitle } from '@/app/contexts/page-title-context';
 import { fetchArenaById, fetchProjectsByArenaId, fetchAvailableProjects } from '@/app/data/api';
 import { Card } from '@/app/components/ui/card';
@@ -23,8 +24,9 @@ interface Project {
 
 export default function UpdateArenaPage() {
   const { setPageTitle } = usePageTitle();
-  const searchParams = useSearchParams();
-  const arenaId = searchParams.get('id');
+  const router = useRouter();
+  const params = useParams();
+  const arenaId = params.id as string;
 
   // Form State
   const [arenaName, setArenaName] = useState('');

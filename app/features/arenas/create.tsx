@@ -89,7 +89,7 @@ export default function CreateArenaPage() {
       <div className="mx-auto">
         <h1 className="text-xl font-bold text-black mb-1 ml-2">Create New Arena</h1>
         <Button
-          onClick={() => window.location.href = '/arena'}
+          onClick={() => window.location.href = '/arenas'}
           variant="purple_link"
           className="flex items-center gap-2 bg-white font-medium mb-4"
         >
@@ -204,6 +204,7 @@ export default function CreateArenaPage() {
 
           
           <div className="col-span-1 row-span-3">
+          <div className="col-span-1 row-span-3">
             <Card className="p-6 h-fit w-full sticky top-6 md:max-h-[calc(100vh-100px)] overflow-y-auto rounded-xl !border-[#C1CEFF] !bg-gray-100">
               <h2 className="text-lg font-semibold text-black mb-4">About Arenas</h2>
               <ul className="space-y-3 text-sm text-gray-700">
@@ -229,6 +230,7 @@ export default function CreateArenaPage() {
                 </li>
               </ul>
             </Card>
+          </div>
           </div>
         </div>
       </div>
