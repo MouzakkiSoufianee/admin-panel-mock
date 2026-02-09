@@ -10,6 +10,7 @@ export function TypographyDemo() {
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <h1 className="text-4xl font-bold">Heading 1 - Manrope Bold</h1>
+          
           <h1 className="font-serif text-4xl font-bold">Heading 1 - Inter Bold</h1>
           <h2 className="text-3xl font-semibold">Heading 2 - Manrope SemiBold</h2>
           <h2 className="font-serif text-3xl font-semibold">Heading 2 - Inter SemiBold</h2>

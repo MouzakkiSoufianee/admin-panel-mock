@@ -57,7 +57,7 @@ export function ArenaCard({ arena, onEdit, onDiscover }: ArenaCardProps) {
 
       {/* Main Card Content - slides up when expanded */}
       <Card
-        className={`bg-white rounded-full shadow-md p-4 transition-all duration-300 transform cursor-pointer hover:shadow-lg h-52 w-auto flex flex-col ${
+        className={`bg-white rounded-full shadow-md p-4 transition-all duration-300 transform cursor-pointer !rounded-[16px] shadow-sm hover:shadow-lg h-52 w-auto flex flex-col ${
           expandedId === arena.id ? '-translate-y-12' : 'translate-y-0'
         }`}
         onClick={() => setExpandedId(expandedId === arena.id ? null : arena.id)}

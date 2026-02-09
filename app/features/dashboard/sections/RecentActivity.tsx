@@ -25,7 +25,7 @@ const DEFAULT_ACTIVITIES: Activity[] = [
 
 export function RecentActivity({ activities = DEFAULT_ACTIVITIES, title = "Recent activity" }: RecentActivityProps) {
   return (
-    <Card className="col-span-1 p-5">
+    <Card className="col-span-1 p-5 !rounded-[18px] shadow-card">
       <div className="flex items-center gap-2 mb-4">
       <Image src="/assets/logos/recentActivity.svg" alt="Recent Activity" width={20} height={20} className="w-5 h-5" />
       <div className="font-semibold text-black">{title}</div>
@@ -33,16 +33,16 @@ export function RecentActivity({ activities = DEFAULT_ACTIVITIES, title = "Recen
       <div className="flex flex-col gap-3">
       {activities.map((act, idx) => (
         <div key={idx} className="flex items-start gap-2">
-        <Plus className="w-6 h-7 text-blue-400 mt-1 rounded-full bg-[rgba(206,206,254,0.5)] flex-shrink-0" />
+        <Plus className="w-7 h-8 text-purple mt-1 rounded-full bg-light-purple flex-shrink-0" />
         <div className="flex-1 min-w-0">
-          <div className="text-sm text-black">{act.text}</div>
-          <div className="text-xs text-gray-400">{act.time}</div>
+          <div className="text-h7 text-black">{act.text}</div>
+          <div className="text-h6 text-gray">{act.time}</div>
         </div>
         </div>
       ))}
       </div>
       <div className="flex justify-center mt-4">
-        <Button variant="purple_link" size="sm">View all activities</Button>
+        <Button className="text-purple" variant="purple_link" size="sm">View all activities</Button>
       </div>
     </Card>
   );

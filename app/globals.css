@@ -9,6 +9,13 @@
   --color-gray: var(--gray); /* secondary text color */
   --font-sans: var(--font-manrope); /* main font */
   --font-serif: var(--font-inter); /* secondary font */
+  
+  /* Typography */
+  --text-h1: 18px / 28px;
+  --text-h2: 16px / 24px;
+  --text-h3: 15px / 22px;
+  --text-h4: 12px / 18px;
+  --text-h5: 12px / 18px;
 
   /*  Design System Colors */
   --color-accent: var(--accent);
@@ -103,7 +110,7 @@
   --muted-foreground: #7a86a1;
 
   /* Brand Colors */
-  --purple: #a855f7;
+  --purple: #716DF0;
   --orange: #ff964f;
   --green: #22c55e;
   --red: #f96767;
@@ -116,9 +123,9 @@
 
   /*  Light Colors */
   --light-blue: #d3eaff;
-  --light-green: #dbffe8;
+  --light-green: #7BB67F;
   --light-pink: #fff4f2;
-  --light-purple: #f4e8ff;
+  --light-purple: #F3EEFF;
   --light-gray: #f2f2f2;
   --light-yellow: #f8f3dd;
 
@@ -133,6 +140,15 @@
   --chart-3: #a855f7;
   --chart-4: #ff964f;
   --chart-5: #22c55e;
+
+  /* Shadows */
+  --shadow-card: 2.26px 12.8px 54px 0 rgba(105, 95, 151, 0.08);
+  --shadow-sm: 0 1px 3px 0 var(--tw-shadow-color, #0000001a), 0 1px 2px -1px var(--tw-shadow-color, #0000001a);
+  --shadow-md: 0 4px 6px -1px rgba(0, 53, 128, 0.1), 0 2px 4px -1px rgba(0, 53, 128, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 53, 128, 0.1), 0 4px 6px -2px rgba(0, 53, 128, 0.05);
+  --shadow-xs: 1.389px 4.88px 10px 0 rgba(105, 95, 151, 0.04);
+  --shadow-pj: 5.383px 30.529px 54px 0 rgba(105, 95, 151, 0.15);
+ 
 }
 
 @layer base {
@@ -336,6 +352,82 @@
   fill: #60a5fa !important;
 }
 
+/* Typography Utilities */
+
+.text-stats {
+  font-size: 23px;
+  line-height: 20px;
+  font-weight: 600;
+  font-family: var(--font-manrope, "Manrope", sans-serif);
+}
+
+.text-h1 {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+  font-family: var(--font-manrope, "Manrope", sans-serif);
+}
+
+.text-h2 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  font-family: var(--font-manrope, "Manrope", sans-serif);
+}
+.text-h3 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: var(--font-manrope, "Manrope", sans-serif);
+}
+
+.text-h4 {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  font-family: var(--font-manrope, "Manrope", sans-serif);
+}
+
+.text-h5 {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  font-family: var(--font-manrope, "Manrope", sans-serif);
+}
+
+.text-h6 {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  font-family: var(--font-manrope, "Manrope", sans-serif);
+}
+
+.text-h7 {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  font-family: var(--font-manrope, "Manrope", sans-serif);
+}
+
+/* Shadow Utilities */
+.shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+.shadow-xs {
+  box-shadow: var(--shadow-xs);
+}
 .toast-loading svg {
   color: #60a5fa !important;
   fill: #60a5fa !important;

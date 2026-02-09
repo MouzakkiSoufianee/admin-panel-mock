@@ -14,26 +14,23 @@ interface OrganizationInfoProps {
 }
 
 const DEFAULT_ORG: Organization = {
-    name: "Organization Name",
+    name: "Organization name",
     created: "Jul 15, 2025",
     updated: "Jan 30, 2026",
 };
 
 export function OrganizationInfo({ org = DEFAULT_ORG, onConfig }: OrganizationInfoProps) {
     return (
-        <Card className="col-span-1 flex flex-col items-center bg-white rounded-2xl w-full !p-2 sm:p-5 md:p-6 shadow-sm"
+        <Card className="col-span-1 flex flex-col items-center bg-white !rounded-[18px] shadow-card w-full sm:p-5 md:p-6 "
+
         >
-            <div className="w-full  relative">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="w-full">
+                <div className="flex items-start justify-between w-full mb-4">
                     <div className="flex-1">
-                        <div className="text-sm text-gray-400">Organization information</div>
-                        <div className="text-lg sm:text-xl font-bold text-black">{org.name}</div>
-                        <div className="h-4" />
-                        <div className="text-xs text-gray-400">Created: {org.created}</div>
-                        <div className="text-xs text-gray-400">Last updated: {org.updated}</div>
-                        <div className="h-4"></div>
+                        <div className="text-h3 text-gray mt-1">Organization information</div>
+                        <div className="text-h2 text-black">{org.name}</div>
                     </div>
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[rgba(206,206,254,0.5)] flex-shrink-0">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-light-purple flex-shrink-0">
                         <Image
                             src="/assets/logos/organization-info-icon.svg"
                             alt="Organization Info"
@@ -42,17 +39,26 @@ export function OrganizationInfo({ org = DEFAULT_ORG, onConfig }: OrganizationIn
                         />
                     </div>
                 </div>
+
+                <div className="flex flex-col">
+                    <div>
+                        <div className="text-h5 text-gray">Created: {org.created}</div>
+                        <div className="text-h5 text-gray">Last updated: {org.updated}</div>
+                        <div className="h-4"></div>
+                    </div>
+                </div>
             </div>
-            <div className="w-full flex flex-col items-center bg-[#CECEFE] rounded-lg p-3 sm:p-4 ">
+            <div className=" flex flex-col items-center bg-[#CECEFE] rounded-lg p-4 sm:p-4 ">
                 <Image
                     src="/assets/logos/Business Analysis.svg"
                     alt="Settings"
-                    width={80}
-                    height={80}
-                    className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 mb-2 sm:mb-3"
+                    width={171.189}
+                    height={82.165}
+                    className="mb-2 sm:mb-3"
+                    style={{ width: '171.189px', height: '82.165px' }}
                     priority
                 />
-                <div className="text-sm sm:text-base md:text-lg text-black mb-3 text-center w-full">Configure organization settings</div>
+                <div className="text-h3 text-black mb-3 text-center w-full">Configure organization settings</div>
                 <Button
                     variant="black"
                     className="h-10 w-28 sm:w-32"

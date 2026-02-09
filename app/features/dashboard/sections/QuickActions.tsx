@@ -30,45 +30,25 @@ const DEFAULT_ACTIONS: QuickAction[] = [
 export function QuickActions({ actions = DEFAULT_ACTIONS, title = "Quick Actions" }: QuickActionsProps) {
   return (
     <Card
-      className="col-span-1 flex flex-col items-start p-5 relative"
-      style={{
-      background: "#fff",
-      borderRadius: 16,
-      padding: 20,
-      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-      minHeight: 160,
-      }}
+      className="col-span-1 flex flex-col items-start !p-7 relative !rounded-[18px] shadow-card"
     >
       <div className="flex items-center mb-6 justify-between w-full">
-        <div className="text-l text-gray-400">{title}</div>
-        <div
-          style={{
-        background: "#f5f7ff",
-        borderRadius: 20,
-        padding: 5,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: 40,
-        width: 48,
-        marginLeft: 12,
-          }}
-        >
-          <Image
-        src="/assets/logos/vector.svg"
-        alt="Activity"
-        width={24}
-        height={24}
-        style={{ objectFit: "contain" }}
-          />
-        </div>
+        <div className="text-h3 text-gray">{title}</div>
+        <div className="bg-light-purple rounded-full h-10 w-10 flex items-center justify-center"><Image
+          src="/assets/logos/vector.svg"
+          alt="Activity"
+          width={24}
+          height={24}
+          style={{ objectFit: "contain" }}
+        /></div>
+        
       </div>
       <div className="flex flex-col 2xl:flex-row items-center gap-3 2xl:gap-6 w-full">
         {actions.map((action, idx) => (
           <Button
             key={idx}
             variant={idx === 0 ? "lightgreen" : "purple"}
-            className="w-full 2xl:flex-1 flex items-center justify-center gap-2 rounded-2xl bg-white shadow-none"
+            className="w-full 2xl:flex-1 flex items-center justify-center gap-2 rounded-[18px] bg-white shadow-none"
             style={{ height: 44 }}
             onClick={action.onClick}
           >

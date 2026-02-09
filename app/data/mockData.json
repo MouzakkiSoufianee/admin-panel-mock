@@ -72,12 +72,13 @@
       "id": "p1",
       "name": "Todo App",
       "description": "Build a simple todo application",
-      "status": "In Progress",
+      "status": "Active",
       "createdDate": "Jul 15, 2025",
       "arenaId": "1",
       "members": ["m1", "m2"],
       "difficulty": "Beginner",
-      "progress": 45
+      "progress": 45,
+      "stage": "onboarding"
     },
     {
       "id": "p2",
@@ -88,29 +89,32 @@
       "arenaId": "1",
       "members": ["m2", "m3"],
       "difficulty": "Beginner",
-      "progress": 100
+      "progress": 100,
+      "stage": "onboarding"
     },
     {
       "id": "p3",
       "name": "Personal Portfolio",
       "description": "Build a responsive portfolio website",
-      "status": "In Progress",
+      "status": "Active",
       "createdDate": "Jul 20, 2025",
       "arenaId": "1",
       "members": ["m1"],
       "difficulty": "Intermediate",
-      "progress": 65
+      "progress": 65,
+      "stage": "engagement"
     },
     {
       "id": "p4",
       "name": "E-commerce Platform",
       "description": "Build a full-featured e-commerce system",
-      "status": "In Progress",
+      "status": "Active",
       "createdDate": "Aug 20, 2025",
       "arenaId": "2",
       "members": ["m2", "m4"],
       "difficulty": "Advanced",
-      "progress": 30
+      "progress": 30,
+      "stage": "training"
     },
     {
       "id": "p5",
@@ -121,29 +125,32 @@
       "arenaId": "2",
       "members": ["m4", "m5"],
       "difficulty": "Advanced",
-      "progress": 100
+      "progress": 100,
+      "stage": "training"
     },
     {
       "id": "p6",
       "name": "Analytics Dashboard",
       "description": "Build a comprehensive analytics dashboard",
-      "status": "Planning",
+      "status": "Draft",
       "createdDate": "Sep 01, 2025",
       "arenaId": "2",
       "members": ["m5"],
       "difficulty": "Advanced",
-      "progress": 10
+      "progress": 10,
+      "stage": "training"
     },
     {
       "id": "p7",
       "name": "REST API Development",
       "description": "Create a robust REST API with Node.js",
-      "status": "In Progress",
+      "status": "Active",
       "createdDate": "Jun 10, 2025",
       "arenaId": "3",
       "members": ["m1", "m3", "m6"],
       "difficulty": "Intermediate",
-      "progress": 75
+      "progress": 75,
+      "stage": "engagement"
     },
     {
       "id": "p8",
@@ -154,40 +161,44 @@
       "arenaId": "3",
       "members": ["m3"],
       "difficulty": "Intermediate",
-      "progress": 100
+      "progress": 100,
+      "stage": "engagement"
     },
     {
       "id": "p9",
       "name": "Authentication System",
       "description": "Implement secure authentication and authorization",
-      "status": "In Progress",
+      "status": "Active",
       "createdDate": "Jun 20, 2025",
       "arenaId": "3",
       "members": ["m1", "m6"],
       "difficulty": "Intermediate",
-      "progress": 55
+      "progress": 55,
+      "stage": "training"
     },
     {
       "id": "p10",
       "name": "React Native App",
       "description": "Build a cross-platform mobile app",
-      "status": "In Progress",
+      "status": "Active",
       "createdDate": "Sep 05, 2025",
       "arenaId": "4",
       "members": ["m4", "m7"],
       "difficulty": "Advanced",
-      "progress": 40
+      "progress": 40,
+      "stage": "pre emboarding"
     },
     {
       "id": "p11",
       "name": "iOS App",
       "description": "Develop a native iOS application",
-      "status": "Planning",
+      "status": "Draft",
       "createdDate": "Sep 10, 2025",
       "arenaId": "4",
       "members": ["m7"],
       "difficulty": "Advanced",
-      "progress": 5
+      "progress": 5,
+      "stage": "pre emboarding"
     },
     {
       "id": "p12",
@@ -198,29 +209,32 @@
       "arenaId": "5",
       "members": ["m5", "m8"],
       "difficulty": "Advanced",
-      "progress": 100
+      "progress": 100,
+      "stage": "training"
     },
     {
       "id": "p13",
       "name": "Machine Learning Model",
       "description": "Build and train an ML model",
-      "status": "In Progress",
+      "status": "Active",
       "createdDate": "Nov 01, 2025",
       "arenaId": "6",
       "members": ["m6", "m9"],
       "difficulty": "Advanced",
-      "progress": 35
+      "progress": 35,
+      "stage": "engagement"
     },
     {
       "id": "p14",
       "name": "Data Visualization",
       "description": "Create interactive data visualizations",
-      "status": "Planning",
+      "status": "Draft",
       "createdDate": "Nov 05, 2025",
       "arenaId": "6",
       "members": ["m9", "m10"],
       "difficulty": "Intermediate",
-      "progress": 15
+      "progress": 15,
+      "stage": "pre emboarding"
     }
   ],
   "members": [

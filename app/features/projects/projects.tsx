@@ -8,6 +8,7 @@ import { Card } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
 import { Badge } from "@/app/components/ui/badge";
 import { Progress } from "@/app/components/ui/progress";
+import { getProjectStageColors } from "@/app/utils/helpers";
 import { ChevronDown, Plus, Search, Heart } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
 import { Input } from "@/app/components/ui/input";
@@ -17,6 +18,7 @@ export interface Project {
   name: string;
   description: string;
   status: "Active" | "Onboarding" | "Engagement" | "Training" | "Completed" | "Unlocked" | "Pre-Onboarding";
+  stage?: string;
   category?: string;
   createdDate: string;
   participantCount?: number;
@@ -48,16 +50,6 @@ const DEFAULT_BADGES = [
   },
 ];
 
-const STATUS_COLORS: Record<Project["status"], { bg: string; text: string; badge: string }> = {
-  Active: { bg: "bg-blue-100", text: "text-blue-700", badge: "bg-blue-50" },
-  Onboarding: { bg: "bg-purple-100", text: "text-purple-700", badge: "bg-purple-50" },
-  Engagement: { bg: "bg-emerald-100", text: "text-emerald-700", badge: "bg-emerald-50" },
-  Training: { bg: "bg-pink-100", text: "text-pink-700", badge: "bg-pink-50" },
-  Completed: { bg: "bg-pink-100", text: "text-pink-700", badge: "bg-pink-50" },
-  Unlocked: { bg: "bg-emerald-100", text: "text-emerald-700", badge: "bg-emerald-50" },
-  "Pre-Onboarding": { bg: "bg-red-100", text: "text-red-700", badge: "bg-red-50" },
-};
-
 export function Projects({
   projects: initialProjects,
   onEdit,
@@ -86,18 +78,20 @@ export function Projects({
           fetchProjects(),
           fetchStatistics(),
         ]);
-        
+
         // Transform API projects to component format
         const transformedProjects: Project[] = fetchedProjects.map((project: any) => ({
           id: project.id,
           name: project.name,
           description: project.description,
           status: (project.status as Project["status"]) || "Active",
-          category: project.status,
+          stage: project.stage,
           createdDate: project.createdDate,
+
+
           participantCount: project.members?.length || 0,
         }));
-        
+
         setProjects(transformedProjects);
         const activeProjects = stats.totalProjects - stats.completedProjects;
         setBadges([
@@ -212,7 +206,7 @@ export function Projects({
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-        
+
             {/* Search Bar */}
             <div className="flex-1 max-w-xs relative">
               <Input
@@ -228,7 +222,7 @@ export function Projects({
 
             {/* Add Project Button */}
             <div className="ml-auto mr-4">
-              <Button variant="primary" className="h-9" onClick={() => router.push('/projects/create')}>
+              <Button variant="primary" className="text-h3 h-9 w-50 " onClick={() => router.push('/projects/create')}>
                 <Plus className="w-4 h-4" />
                 Add project
               </Button>
@@ -238,16 +232,23 @@ export function Projects({
           {/* Projects Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {filteredProjects.map((project) => {
-              const colors = STATUS_COLORS[project.status] || STATUS_COLORS["Active"];
+              const stageMap: Record<string, string> = {
+                "onboarding": "Onboarding",
+                "engagement": "Engagement",
+                "training": "Training",
+                "pre emboarding": "Pre-Onboarding"
+              };
+              const normalizedStage = stageMap[(project as any).stage?.toLowerCase()] || "Onboarding";
+              const colors = getProjectStageColors(normalizedStage);
               return (
                 <div key={project.id} className="relative group">
                   {/* Project Card */}
                   <Card
-                    className={`${colors.bg} !rounded-4xl shadow-md  !p-0 transition-all !shadow-lg duration-300 transform  cursor-pointer hover:shadow-lg overflow-hidden flex flex-col h-full mr-4`}
+                    className={`${colors?.bg || 'bg-gray-100'} !rounded-[30px] !shadow-pj  !p-0 transition-all  duration-300 transform  cursor-pointer hover:shadow-lg overflow-hidden flex flex-col h-full mr-4`}
                     onClick={() => onViewDetails?.(project.id)}
                   >
                     {/* Image/Icon Area */}
-                    <div className={`${colors.bg} h-32 w-full flex items-center justify-center relative overflow-hidden`}>
+                    <div className={`${colors?.bg || 'bg-gray-100'} h-32 w-full flex items-center justify-center relative overflow-hidden`}>
                       {project.image ? (
                         <Image src={project.image} alt={project.name} className="w-full h-full object-cover" />
                       ) : (
@@ -274,11 +275,10 @@ export function Projects({
                           className="flex-shrink-0"
                         >
                           <Heart
-                            className={`w-5 h-5 transition-colors ${
-                              favorites.has(project.id)
-                                ? 'fill-red-500 text-red-500'
-                                : 'text-gray-300 hover:text-red-500'
-                            }`}
+                            className={`w-5 h-5 transition-colors ${favorites.has(project.id)
+                                ? `fill-current ${colors?.text || 'text-red-500'}`
+                                : `${colors?.text || 'text-gray-300'} hover:opacity-80`
+                              }`}
                           />
                         </button>
                       </div>
@@ -294,9 +294,9 @@ export function Projects({
                         <div className="flex justify-between items-center">
                           <Badge
                             variant="default"
-                            className={`${colors.badge} ${colors.text} rounded-full text-xs`}
+                            className={`${colors?.badge || 'bg-gray-100'} ${colors?.text || 'text-gray-700'} rounded-full text-xs`}
                           >
-                            {project.status}
+                            {project.stage}
                           </Badge>
                           <p className="text-xs text-gray-500">{project.createdDate}</p>
                         </div>
@@ -308,8 +308,8 @@ export function Projects({
                           </p>
                           <div className="w-16">
                             <Progress
-                            variant="gradient"
-                              value={Math.min((project.participantCount || 0) * 10, 100)}                      
+                              variant="gradient"
+                              value={Math.min((project.participantCount || 0) * 10, 100)}
                             />
                           </div>
                         </div>

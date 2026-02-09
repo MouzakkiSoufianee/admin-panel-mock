@@ -5,14 +5,13 @@ import { usePageTitle } from "@/app/contexts/page-title-context";
 import { OrganizationInfo, Organization } from "./sections/OrganizationInfo";
 import { QuickStats, Stat } from "./sections/QuickStats";
 import { QuickActions, QuickAction } from "./sections/QuickActions";
-import { RecentProjects, Project } from "./sections/RecentProjects";
+import { RecentProjects } from "./sections/RecentProjects";
 import { RecentActivity, Activity } from "./sections/RecentActivity";
 import ChatbotConfig from "./sections/chatbotConfig";
 
 interface DashboardProps {
   stats?: Stat[];
   activities?: Activity[];
-  projects?: Project[];
   org?: Organization;
   actions?: QuickAction[];
 }
@@ -36,32 +35,7 @@ const DEFAULT_ACTIVITIES: Activity[] = [
   { text: "Journey Edited: First Week by Mark Davis", time: "Yesterday" },
 ];
 
-const DEFAULT_PROJECTS: Project[] = [
-  {
-    name: "Rock your star",
-    created: "5 days ago",
-    stage: "Onboarding",
-    avatars: 3,
-    status: "Active",
-    progress: 65,
-  },
-  {
-    name: "Rock your star",
-    created: "2 days ago",
-    stage: "Pre-Onboarding",
-    avatars: 2,
-    status: "Active",
-    progress: 65,
-  },
-  {
-    name: "Rock your star",
-    created: "2 days ago",
-    stage: "Training",
-    avatars: 2,
-    status: "Active",
-    progress: 65,
-  },
-];
+
 
 const DEFAULT_ORG: Organization = {
   name: "Organization Name",
@@ -83,7 +57,6 @@ const DEFAULT_ACTIONS: QuickAction[] = [
 export function Dashboard({
   stats = DEFAULT_STATS,
   activities = DEFAULT_ACTIVITIES,
-  projects = DEFAULT_PROJECTS,
   org = DEFAULT_ORG,
   actions = DEFAULT_ACTIONS,
 }: DashboardProps) {
@@ -98,7 +71,7 @@ export function Dashboard({
             <h2 className="text-lg text-black font-semibold mb-4">
                 Overview of your organization and recent activity <span role="img" aria-label="wave">👋</span>
             </h2>
-            <div className="grid grid-cols-12 gap-4 md:gap-6">
+            <div className="grid grid-cols-12 gap-3 md:gap-3">
                 <div className="col-span-3">
                     <OrganizationInfo org={org} />
                 </div>
@@ -119,7 +92,7 @@ export function Dashboard({
 
 
                 <div className="col-span-9">
-                    <RecentProjects projects={projects} />
+                    <RecentProjects />
                 </div>
             </div>
         </div>

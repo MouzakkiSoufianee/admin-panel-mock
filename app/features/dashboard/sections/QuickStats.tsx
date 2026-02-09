@@ -23,12 +23,12 @@ const DEFAULT_STATS: Stat[] = [
 
 export function QuickStats({ stats = DEFAULT_STATS, title = "Quick statistics" }: QuickStatsProps) {
     return (
-        <Card className="col-span-2 flex flex-col gap-4 bg-white rounded-2xl p-5 shadow-sm"
+        <Card className="flex flex-col gap-4 bg-white  !rounded-[18px] shadow-card p-5 "
         >
             <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-400">{title}</div>
+                <div className="text-h3 text-gray">{title}</div>
                 <div
-                    className="bg-[#f5f7ff] rounded-full p-1.5 flex items-center justify-center h-10 w-12"
+                    className="bg-light-purple rounded-full p-1.5 flex items-center justify-center h-10 w-12"
                 >
                     <Image
                         src="/assets/logos/Activity.svg"
@@ -41,13 +41,13 @@ export function QuickStats({ stats = DEFAULT_STATS, title = "Quick statistics" }
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
                 {stats.map((stat, idx) => (
-                    <div
+                    <Card
                         key={stat.label}
-                        className="flex flex-col items-center py-2 px-1 rounded-2xl bg-white border border-black/5 shadow-sm"
+                        className="flex flex-col gap-2 items-center py-2 px-1 rounded-[18px] bg-white border border-black/5"
                     >
-                        <div className="text-lg sm:text-xl font-bold text-[#7FBA7A]">{stat.value}</div>
-                        <div className="text-xs text-gray-500 text-center">{stat.label}</div>
-                    </div>
+                        <div className="text-stats text-light-green">{stat.value}</div>
+                        <div className="text-h6 text-black text-center">{stat.label}</div>
+                    </Card>
                 ))}
             </div>
 
