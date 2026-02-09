@@ -11,6 +11,7 @@ import { MoveLeft, X, Check } from 'lucide-react';
 import Image from 'next/image';
 import { Checkbox } from '@/app/components/ui/checkbox';
 import { ProjectsIcon } from '@/app/components/shared/sidebarSections/icons';
+import Link from 'next/link';
 interface Project {
   id: string;
   name: string;
@@ -88,14 +89,14 @@ export default function CreateArenaPage() {
     <div className="min-h-screen bg-white p-6">
       <div className="mx-auto">
         <h1 className="text-xl font-bold text-black mb-1 ml-2">Create New Arena</h1>
-        <Button
-          onClick={() => window.location.href = '/arenas'}
-          variant="purple_link"
-          className="flex items-center gap-2 bg-white font-medium mb-4"
+        
+        <Link
+          href="/arenas"
+          className="flex items-center gap-2 text-purple  text-h3 mb-4 cursor-pointer"
         >
           <MoveLeft size={16} />
           Back to arenas
-        </Button>
+        </Link>
 
         <div className="grid grid-cols-3 gap-6 mt-6">
           <div className="col-span-2 space-y-6">

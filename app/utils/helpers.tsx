@@ -202,9 +202,14 @@ export const formatDateDDMMYYYY = (
 }
 
 /**
+ * Project stage type definition
+ */
+export type ProjectStage =   "Onboarding" | "Engagement" | "Training"  | "PreOnboarding"
+
+/**
  * Project status type definition
  */
-export type ProjectStage =   "Onboarding" | "Engagement" | "Training"  | "Pre-Onboarding"
+export type ProjectStatus = "Active" | "Completed" | "Unlocked" | "Draft"
 
 /**
  * Status colors mapping for project statuses
@@ -214,8 +219,19 @@ export const PROJECT_STAGE_COLORS: Record<ProjectStage, { bg: string; text: stri
   Onboarding: { bg: "bg-[#E3E3FE]", text: "text-[#7570F2]", badge: "bg-purple-50" },
   Engagement: { bg: "bg-[#CFF0E8]", text: "text-[#378874]", badge: "bg-emerald-50" },
   Training: { bg: "bg-[#F4E8FF]", text: "text-[#A855F7]", badge: "bg-pink-50" },
-  "Pre-Onboarding": { bg: "bg-[#FFEAF0]", text: "text-[#A855F7]", badge: "bg-red-50" },
+  PreOnboarding: { bg: "bg-[#FFEAF0]", text: "text-[#F16E95]", badge: "bg-red-50" },
 
+}
+
+/**
+ * Status colors mapping for project statuses
+ * Returns background, text, and badge colors for each status
+ */
+export const PROJECT_STATUS_COLORS: Record<ProjectStatus, { bg: string; text: string; badge: string }> = {
+  Active: { bg: "bg-white", text: "text-[#7BB6A7]", badge: "bg-green-50" },
+  Completed: { bg: "bg-white", text: "text-[#30B5FF]", badge: "bg-blue-50" },
+  Unlocked: { bg: "bg-white", text: "text-[#828DA5]", badge: "bg-amber-50" },
+  Draft: { bg: "bg-white", text: "text-[#828DA5]", badge: "bg-gray-50" },
 }
 
 /**
@@ -227,5 +243,29 @@ export const PROJECT_STAGE_COLORS: Record<ProjectStage, { bg: string; text: stri
  * // { bg: "bg-blue-100", text: "text-blue-700", badge: "bg-blue-50" }
  */
 export const getProjectStageColors = (status: ProjectStage | string) => {
-  return PROJECT_STAGE_COLORS[status as ProjectStage]
+  // Normalize the status string: remove hyphens and capitalize properly
+  const normalized = status
+    .toLowerCase()
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('') as ProjectStage;
+  
+  return PROJECT_STAGE_COLORS[normalized] || PROJECT_STAGE_COLORS[status as ProjectStage] || { bg: "bg-gray-100", text: "text-gray-700", badge: "bg-gray-50" };
+}
+
+
+/**
+ * Gets the color classes for a given project status
+ * @param status - The project status
+ * @returns Object containing bg, text, and badge color classes
+ */
+export const getProjectStatusColors = (status: ProjectStatus | string) => {
+  // Normalize the status string: remove hyphens and capitalize properly
+  const normalized = status
+    .toLowerCase()
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('') as ProjectStage;
+  
+  return PROJECT_STAGE_COLORS[normalized] || PROJECT_STAGE_COLORS[status as ProjectStage];
 }

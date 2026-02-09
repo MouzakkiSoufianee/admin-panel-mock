@@ -50,7 +50,7 @@ export function RecentProjects({
         const transformed = apiProjects.slice(0, 5).map((project: any) => ({
           name: project.name,
           created: project.createdDate,
-          stage: project.stage.charAt(0).toUpperCase() + project.stage.slice(1),
+          stage: project.stage,
           avatars: project.members.length,
           status: project.status,
           progress: project.progress,
@@ -129,9 +129,9 @@ export function RecentProjects({
               </div>
               <div className="col-span-2">
                 {(() => {
-                  const colors = getProjectStageColors(proj.stage);
+                  const stageColors = getProjectStageColors(proj.stage);
                   return (
-                    <Badge className={`${colors.badge} ${colors.text} rounded-full text-xs`}>
+                    <Badge className={`${stageColors.badge} ${stageColors.text} rounded-full text-xs`}>
                       {proj.stage}
                     </Badge>
                   );
