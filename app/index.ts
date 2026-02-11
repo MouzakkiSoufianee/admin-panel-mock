@@ -22,6 +22,8 @@ export { Avatar } from './components/ui/avatar';
 export { Badge } from './components/ui/badge';
 export { Progress } from './components/ui/progress';
 export { Tag } from './components/ui/tag';
+export { ActionMenu, type ActionMenuItem } from './components/ui/action-menu';
+export { ExpandableCard, type ExpandableCardProps } from './components/ui/expandable-card';
 
 // Utils & Helpers
 export { 

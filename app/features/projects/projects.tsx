@@ -165,7 +165,7 @@ export function Projects({
             {/* Filter Dropdowns */}
             <div className="flex gap-2 items-center flex-wrap">
               <Select value={filterDropdown} onValueChange={setFilterDropdown}>
-                <SelectTrigger size="sm" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                <SelectTrigger size="lg" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent align="start">
@@ -178,7 +178,7 @@ export function Projects({
               </Select>
 
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger size="sm" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                <SelectTrigger size="lg" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent align="start">
@@ -189,7 +189,7 @@ export function Projects({
               </Select>
 
               <Select value={arenaFilter} onValueChange={setArenaFilter}>
-                <SelectTrigger size="sm" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                <SelectTrigger size="lg" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent align="start">

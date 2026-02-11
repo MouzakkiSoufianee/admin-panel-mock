@@ -133,7 +133,7 @@ export function Arena({
       <div className="flex flex-col sm:flex-row gap-3 mb-6 items-center">
         <div className="flex gap-2 items-center">
           <Select value={filterDropdown} onValueChange={setFilterDropdown}>
-            <SelectTrigger size="sm" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+            <SelectTrigger size="lg" >
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="start">
