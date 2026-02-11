@@ -329,6 +329,96 @@
       "joinDate": "Feb 01, 2025"
     }
   ],
+  "events": [
+    {
+      "id": "0d3f702-b497-4179-b177-71cf5062ec4f",
+      "title": "Event title here",
+      "startDate": "Jul 15, 2025",
+      "startTime": "09:00",
+      "endDate": "Jul 15, 2025",
+      "endTime": "09:00",
+      "created": "Jul 15, 2025 at 09:00",
+      "duration": "2d 9h",
+      "status": "Completed"
+    },
+    {
+      "id": "1a4e802-c598-5280-c288-82dg6062fd5g",
+      "title": "Team Meeting",
+      "startDate": "Feb 15, 2026",
+      "startTime": "10:00",
+      "endDate": "Feb 15, 2026",
+      "endTime": "11:30",
+      "created": "Feb 10, 2026 at 14:00",
+      "duration": "1h 30m",
+      "status": "Pending"
+    },
+    {
+      "id": "2b5f913-d609-6391-d399-93eh7173ge6h",
+      "title": "Training Session",
+      "startDate": "Feb 18, 2026",
+      "startTime": "14:00",
+      "endDate": "Feb 20, 2026",
+      "endTime": "16:00",
+      "created": "Feb 05, 2026 at 10:00",
+      "duration": "3d 2h",
+      "status": "In Progress"
+    },
+    {
+      "id": "3c6g024-e710-7402-e400-04fi8284hf7i",
+      "title": "Annual Conference",
+      "startDate": "Mar 01, 2026",
+      "startTime": "08:00",
+      "endDate": "Mar 03, 2026",
+      "endTime": "17:00",
+      "created": "Jan 20, 2026 at 09:00",
+      "duration": "3d 9h",
+      "status": "Pending"
+    },
+    {
+      "id": "4d7h135-f821-8513-f511-15gj9395ig8j",
+      "title": "Project Kickoff",
+      "startDate": "Feb 17, 2026",
+      "startTime": "13:00",
+      "endDate": "Feb 17, 2026",
+      "endTime": "14:00",
+      "created": "Feb 08, 2026 at 11:00",
+      "duration": "1h",
+      "status": "Pending"
+    },
+    {
+      "id": "5e8i246-g932-9624-g622-26hk0406jh9k",
+      "title": "Board Meeting",
+      "startDate": "Feb 12, 2026",
+      "startTime": "15:00",
+      "endDate": "Feb 12, 2026",
+      "endTime": "16:30",
+      "created": "Feb 01, 2026 at 08:00",
+      "duration": "1h 30m",
+      "status": "Completed"
+    },
+    {
+      "id": "6f9j357-h043-0735-h733-37il1517ki0l",
+      "title": "Quarterly Review",
+      "startDate": "Feb 25, 2026",
+      "startTime": "10:00",
+      "endDate": "Feb 26, 2026",
+      "endTime": "12:00",
+      "created": "Feb 09, 2026 at 09:00",
+      "duration": "2d 2h",
+      "status": "Pending"
+    },
+    {
+      "id": "7g0k468-i154-1846-i844-48jm2628lj1m",
+      "title": "Feedback Session",
+      "startDate": "Feb 19, 2026",
+      "startTime": "11:00",
+      "endDate": "Feb 19, 2026",
+      "endTime": "12:00",
+      "created": "Feb 10, 2026 at 10:00",
+      "duration": "1h",
+      "status": "In Progress"
+    }
+  ],
   "statistics": {
     "totalArenas": 6,
     "activeArenas": 5,

@@ -5,7 +5,8 @@ import { Card } from "@/app/components/ui/card";
 
 export default function ChatbotConfig() {
     return (
-        <Card className="bg-white !rounded-[18px] shadow-card p-5">
+        
+            <Card className="bg-white !rounded-[18px] shadow-card p-5">
             <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
                 <div className="w-full">
                     {/* Icon and heading in a row */}
@@ -35,6 +36,8 @@ export default function ChatbotConfig() {
                     </Button>
                 </div>
             </div>
-        </Card>
+        </Card>     
+        
+        
     );
 }

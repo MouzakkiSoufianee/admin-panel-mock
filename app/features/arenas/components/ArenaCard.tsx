@@ -17,7 +17,7 @@ interface ArenaCardProps {
 
 export function ArenaCard({ arena, onEdit, onDiscover }: ArenaCardProps) {
   const router = useRouter();
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleEdit = () => {
     if (onEdit) {
@@ -34,33 +34,36 @@ export function ArenaCard({ arena, onEdit, onDiscover }: ArenaCardProps) {
   };
 
   return (
-    <div className="relative group">
+    <div 
+      className="relative group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Action Buttons - appears behind the sliding card */}
-      <div className="flex absolute bottom-0 left-0 right-0 w-full flex-row items-center justify-between gap-2 rounded-b-2xl p-3 bg-[#CFCFFF] transition-opacity duration-300 -mt-2">
+      <div className="flex absolute bottom-0 left-0 right-0 w-full flex-row items-center justify-between  gap-2 rounded-b-2xl p-4 bg-[#CFCFFF] transition-opacity duration-300 -mt-1">
         <Button
-          variant="outline"
+          variant="primary"
           onClick={handleEdit}
-          className="text-[#716DF0] hover:bg-blue-200 flex items-center gap-1"
+          className="!text-[#716DF0] !bg-white flex items-center gap-1"
         >
           <SquarePen className="w-4 h-4" />
           edit
         </Button>
         <Button
-          variant="outline"
+          variant="primary"
           onClick={handleDiscover}
-          className="text-[#716DF0] flex items-center gap-1"
+          className="!text-[#716DF0] !bg-white flex items-center gap-1"
         >
           <Eye className="w-4 h-4" />
           Discover
         </Button>
       </div>
 
-      {/* Main Card Content - slides up when expanded */}
+      {/* Main Card Content - slides up on hover */}
       <Card
-        className={`bg-white rounded-full shadow-md p-4 transition-all duration-300 transform cursor-pointer !rounded-[16px] shadow-sm hover:shadow-lg h-52 w-auto flex flex-col ${
-          expandedId === arena.id ? '-translate-y-12' : 'translate-y-0'
+        className={`bg-white rounded-full shadow-card p-4 transition-all duration-300 transform !rounded-[16px] shadow-sm hover:shadow-lg h-52 w-auto flex flex-col ${
+          isHovered ? '-translate-y-14' : 'translate-y-0'
         }`}
-        onClick={() => setExpandedId(expandedId === arena.id ? null : arena.id)}
       >
         {/* Card Header with title and menu */}
         <div className="flex justify-between items-start mb-3 flex-shrink-0">

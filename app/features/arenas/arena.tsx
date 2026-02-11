@@ -7,8 +7,8 @@ import { arenaService } from "./services/arenaService";
 import { ArenaList } from "./components/ArenaList";
 import { Button } from "@/app/components/ui/button";
 import { Badge } from "@/app/components/ui/badge";
-import { ChevronDown, Plus, Search } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
+import { Plus, Search } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
 import { Input } from "@/app/components/ui/input";
 import type { Arena, ArenasProps, Badge as BadgeType } from "./types";
 
@@ -17,15 +17,15 @@ const DEFAULT_BADGES: BadgeType[] = [
     id: "1",
     label: "Total Arenas",
     value: 0,
-    bgColor: "bg-blue-100",
-    textColor: "text-blue-600",
+    bgColor: "bg-[#DDF3FF]",
+    textColor: "text-[#5A7BFF]",
   },
   {
     id: "2",
     label: "Total Projects",
     value: 0,
-    bgColor: "bg-green-100",
-    textColor: "text-green-600",
+    bgColor: "bg-[#DFF8E1]",
+    textColor: "text-[#358C3B]",
   },
 ];
 
@@ -37,8 +37,7 @@ export function Arena({
 }: ArenasProps) {
   const router = useRouter();
   const { setPageTitle } = usePageTitle();
-  const [filterDropdown, setFilterDropdown] = useState("All arenas");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [filterDropdown, setFilterDropdown] = useState("all");
   const [arenas, setArenas] = useState<Arena[]>(initialArenas || []);
   const [badges, setBadges] = useState<BadgeType[]>(DEFAULT_BADGES);
   const [isLoading, setIsLoading] = useState(!initialArenas || initialArenas.length === 0);
@@ -133,20 +132,16 @@ export function Arena({
       {/* Filter and Stats Bar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6 items-center">
         <div className="flex gap-2 items-center">
-
-          <DropdownMenu onOpenChange={setIsDropdownOpen}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outlined_card" className="flex items-center h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
-                All arenas
-                <ChevronDown className={`w-4 h-4 mt-0.5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="text-gray-500" align="start">
-              <DropdownMenuItem>All arenas</DropdownMenuItem>
-              <DropdownMenuItem>Active</DropdownMenuItem>
-              <DropdownMenuItem>Inactive</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Select value={filterDropdown} onValueChange={setFilterDropdown}>
+            <SelectTrigger size="sm" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent align="start">
+              <SelectItem value="all">All arenas</SelectItem>
+              <SelectItem value="active">Active</SelectItem>
+              <SelectItem value="inactive">Inactive</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex-1 max-w-xs relative">
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6  text-gray-400" />

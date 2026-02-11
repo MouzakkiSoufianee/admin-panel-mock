@@ -278,7 +278,7 @@ export default function UpdateArenaPage() {
               <Button variant="secondary">Cancel</Button>
               <Button variant="primary"  onClick={handleSave}>
                 <FileCheck  />
-                Update Arena
+                Save changes
               </Button>
             </div>
           </div>

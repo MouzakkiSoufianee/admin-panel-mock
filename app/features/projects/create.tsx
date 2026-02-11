@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { usePageTitle } from "@/app/contexts/page-title-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
@@ -75,7 +76,7 @@ export function CreateProject() {
   const [coverImagePreview, setCoverImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
-    setPageTitle("Create new project for your teams");
+    setPageTitle("Projects ");
   }, [setPageTitle]);
 
   const handleIconUpload = useCallback((files: File[]) => {
@@ -132,20 +133,21 @@ export function CreateProject() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
     <div className="p-4 sm:p-6 bg-white min-h-screen">
+        <p className="text-h1  text-black mb-1 ml-2">Create a new project for your teams</p>
       {/* Header with Back Button */}
       <div className="mb-6 flex items-center gap-3">
         <Link
           href="/projects"
-          className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700"
+          className="flex items-center gap-2 text-sm text-purple"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to projects</span>
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 2xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Form Section */}
-        <div className="2xl:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-6">
           {/* Basic Information Card */}
             <Card className="rounded-[30px] border border-gray-200">
             <CardHeader>
@@ -356,7 +358,7 @@ export function CreateProject() {
         </div>
 
         {/* Quick Actions Sidebar */}
-        <div className="2xl:col-span-1">
+        <div className="col-span-1">
           <QuickActions
             actions={QUICK_ACTIONS}
             title="Quick actions"

@@ -265,7 +265,11 @@ export const getProjectStatusColors = (status: ProjectStatus | string) => {
     .toLowerCase()
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('') as ProjectStage;
-  
-  return PROJECT_STAGE_COLORS[normalized] || PROJECT_STAGE_COLORS[status as ProjectStage];
+    .join('') as ProjectStatus;
+
+  return (
+    PROJECT_STATUS_COLORS[normalized] ||
+    PROJECT_STATUS_COLORS[status as ProjectStatus] ||
+    { bg: "bg-gray-100", text: "text-gray-700", badge: "bg-gray-50" }
+  );
 }

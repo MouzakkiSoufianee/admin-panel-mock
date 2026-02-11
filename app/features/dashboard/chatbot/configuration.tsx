@@ -85,15 +85,14 @@ export default function ChatbotConfigPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6">
+        <div className="min-h-screen bg-white p-6">
             <div className=" mx-auto">
                 <h1 className="text-xl font-bold text-black mb-1 ml-2">Config chatbot</h1>
-                <Button onClick={() => window.location.href = "/dashboard"}
-                    variant='purple_link'
-                    className="flex items-center gap-2   bg-white font-medium mb-4">
+                <Link href="/dashboard" className="flex items-center gap-2 text-[#7570F2]   font-medium mb-4">
+                    
                     <MoveLeft size={16} />
                     Back to Dashboard
-                </Button>
+                </Link>
 
                 <div className="grid grid-cols-3 gap-6 mt-6">
 

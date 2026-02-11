@@ -9,8 +9,8 @@ import { Button } from "@/app/components/ui/button";
 import { Badge } from "@/app/components/ui/badge";
 import { Progress } from "@/app/components/ui/progress";
 import { getProjectStageColors, getProjectStatusColors } from "@/app/utils/helpers";
-import { ChevronDown, Plus, Search, Heart } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
+import { Plus, Search, Heart, SquarePen, Eye } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
 import { Input } from "@/app/components/ui/input";
 import Image from "next/image";
 export interface Project {
@@ -58,13 +58,15 @@ export function Projects({
 }: ProjectsProps) {
   const router = useRouter();
   const { setPageTitle } = usePageTitle();
-  const [filterDropdown, setFilterDropdown] = useState("All projects");
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filterDropdown, setFilterDropdown] = useState("all-projects");
+  const [sortBy, setSortBy] = useState("newest");
+  const [arenaFilter, setArenaFilter] = useState("all-arenas");
   const [projects, setProjects] = useState<Project[]>(initialProjects || []);
   const [badges, setBadges] = useState(DEFAULT_BADGES);
   const [isLoading, setIsLoading] = useState(!initialProjects || initialProjects.length === 0);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
+  const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
 
   useEffect(() => {
     setPageTitle('Projects');
@@ -162,49 +164,40 @@ export function Projects({
           <div className="flex flex-col sm:flex-row gap-3 mb-8 items-center">
             {/* Filter Dropdowns */}
             <div className="flex gap-2 items-center flex-wrap">
-              <DropdownMenu onOpenChange={setIsFilterOpen}>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outlined_card" className="flex items-center h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
-                    {filterDropdown}
-                    <ChevronDown className={`w-4 h-4 mt-0.5 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="text-gray-500" align="start">
-                  <DropdownMenuItem onClick={() => setFilterDropdown("All projects")}>All projects</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setFilterDropdown("Active quests")}>Active quests</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setFilterDropdown("Completed quests")}>Completed quests</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setFilterDropdown("Unlocked quests")}>Unlocked quests</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setFilterDropdown("Drafts")}>Drafts</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Select value={filterDropdown} onValueChange={setFilterDropdown}>
+                <SelectTrigger size="sm" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent align="start">
+                  <SelectItem value="all-projects">All projects</SelectItem>
+                  <SelectItem value="active-quests">Active quests</SelectItem>
+                  <SelectItem value="completed-quests">Completed quests</SelectItem>
+                  <SelectItem value="unlocked-quests">Unlocked quests</SelectItem>
+                  <SelectItem value="drafts">Drafts</SelectItem>
+                </SelectContent>
+              </Select>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outlined_card" className="flex items-center h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
-                    Newest
-                    <ChevronDown className="w-4 h-4 mt-0.5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="text-gray-500" align="start">
-                  <DropdownMenuItem>Newest</DropdownMenuItem>
-                  <DropdownMenuItem>Oldest</DropdownMenuItem>
-                  <DropdownMenuItem>Most Popular</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger size="sm" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent align="start">
+                  <SelectItem value="newest">Newest</SelectItem>
+                  <SelectItem value="oldest">Oldest</SelectItem>
+                  <SelectItem value="most-popular">Most Popular</SelectItem>
+                </SelectContent>
+              </Select>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outlined_card" className="flex items-center h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
-                    All arenas
-                    <ChevronDown className="w-4 h-4 mt-0.5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="text-gray-500" align="start">
-                  <DropdownMenuItem>All arenas</DropdownMenuItem>
-                  <DropdownMenuItem>Arena 1</DropdownMenuItem>
-                  <DropdownMenuItem>Arena 2</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Select value={arenaFilter} onValueChange={setArenaFilter}>
+                <SelectTrigger size="sm" className="h-9 !rounded-full text-gray-500 text-sm gap-1 px-3">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent align="start">
+                  <SelectItem value="all-arenas">All arenas</SelectItem>
+                  <SelectItem value="arena-1">Arena 1</SelectItem>
+                  <SelectItem value="arena-2">Arena 2</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Search Bar */}
@@ -241,12 +234,55 @@ export function Projects({
               const normalizedStage = stageMap[(project as any).stage?.toLowerCase()] || "Onboarding";
               const stageColors = getProjectStageColors(normalizedStage);
               const statusColors = getProjectStatusColors(project.status);
+              const isHovered = hoveredProjectId === project.id;
+              
               return (
-                <div key={project.id} className="relative group">
+                <div 
+                  key={project.id} 
+                  className="relative group"
+                  onMouseEnter={() => setHoveredProjectId(project.id)}
+                  onMouseLeave={() => setHoveredProjectId(null)}
+                >
+                  {/* Action Buttons - appears behind the sliding card */}
+                  <div className="flex absolute bottom-0 left-0 right-0 w-full flex-row items-center justify-between gap-3 rounded-b-[30px] px-6 pt-8 pb-3 bg-[#CFCFFF] transition-opacity duration-300 -mt-1">
+                    <Button
+                      
+                      variant="primary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onEdit) {
+                          onEdit(project.id);
+                        } else {
+                          router.push(`/projects/${project.id}`);
+                        }
+                      }}
+                      className="!text-[#716DF0] !bg-white flex items-center gap-1"
+                    >
+                      <SquarePen className="w-4 h-4" />
+                      Edit
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onViewDetails) {
+                          onViewDetails(project.id);
+                        } else {
+                          router.push(`/projects/${project.id}`);
+                        }
+                      }}
+                      className="!text-[#716DF0] !bg-white flex items-center gap-1"
+                    >
+                      <Eye className="w-4 h-4" />
+                      View
+                    </Button>
+                  </div>
+
                   {/* Project Card */}
                   <Card
-                    className={`${stageColors?.bg || 'bg-gray-100'} !rounded-[30px] !shadow-pj  !p-0 transition-all  duration-300 transform  cursor-pointer hover:shadow-lg overflow-hidden flex flex-col h-full mr-4`}
-                    onClick={() => onViewDetails?.(project.id)}
+                    className={`${stageColors?.bg || 'bg-gray-100'} !rounded-[30px] !shadow-pj  !p-0 transition-all duration-300 transform overflow-hidden flex flex-col h-full  ${
+                      isHovered ? '-translate-y-14' : 'translate-y-0'
+                    }`}
                   >
                     {/* Image/Icon Area */}
                     <div className={`${stageColors?.bg || 'bg-gray-100'} h-32 w-full flex items-center justify-center relative overflow-hidden`}>

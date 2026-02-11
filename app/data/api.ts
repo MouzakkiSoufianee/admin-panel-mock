@@ -24,6 +24,18 @@ export interface Project {
   progress: number;
 }
 
+export interface Event {
+  id: string;
+  title: string;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
+  created: string;
+  duration: string;
+  status: 'Completed' | 'Pending' | 'In Progress';
+}
+
 export interface Member {
   id: string;
   name: string;
@@ -140,6 +152,26 @@ export const fetchMembersByArenaId = async (arenaId: string): Promise<Member[]> 
 export const fetchStatistics = async () => {
   await delay(300);
   return mockData.statistics;
+};
+
+/**
+ * Fetch all events
+ * @returns Promise<Event[]>
+ */
+export const fetchEvents = async (): Promise<Event[]> => {
+  await delay(300);
+  return mockData.events as Event[];
+};
+
+/**
+ * Fetch a single event by ID
+ * @param id - Event ID
+ * @returns Promise<Event | null>
+ */
+export const fetchEventById = async (id: string): Promise<Event | null> => {
+  await delay(400);
+  const event = (mockData.events as any[]).find((e: any) => e.id === id);
+  return event || null;
 };
 
 /**

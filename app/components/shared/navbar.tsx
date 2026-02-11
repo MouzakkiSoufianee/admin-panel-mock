@@ -26,7 +26,7 @@ export default function Navbar({ isSidebarCollapsed, orgName = "ORG name" }: Nav
         <span className="font-medium text-lg text-gray-900">{pageTitle}</span>
         <div className="ml-4 min-w-[120px]">
           <Select>
-            <SelectTrigger className="rounded-xl border border-gray-200 px-3 py-1.5 text-sm text-gray-700 bg-white shadow focus:border-[#7B6EF6] focus:ring-1 focus:ring-[#7B6EF6] outline-none w-full">
+            <SelectTrigger className="!rounded-md !border-gray-300 !bg-white h-9 text-sm gap-1 px-3">
               <SelectValue placeholder={orgName} />
             </SelectTrigger>
             <SelectContent>

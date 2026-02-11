@@ -43,12 +43,12 @@ export function QuickActions({ actions = DEFAULT_ACTIONS, title = "Quick Actions
         /></div>
         
       </div>
-      <div className="flex flex-col 2xl:flex-row items-center gap-3 2xl:gap-6 w-full">
+      <div className="flex flex-col 2xl:grid 2xl:grid-cols-2 items-start gap-3 2xl:gap-6 w-full">
         {actions.map((action, idx) => (
           <Button
             key={idx}
             variant={idx === 0 ? "lightgreen" : "purple"}
-            className="w-full 2xl:flex-1 flex items-center justify-center gap-2 rounded-[18px] bg-white shadow-none"
+            className="w-full 2xl:w-full flex justify-start gap-2 rounded-[18px] bg-white shadow-none"
             style={{ height: 44 }}
             onClick={action.onClick}
           >
