@@ -46,7 +46,7 @@ export default function Events() {
     };
 
     const handleEdit = (id: string) => {
-        console.log('Edit event:', id);
+        router.push(`/events/update?id=${id}`);
     };
 
     const handleDelete = (id: string) => {

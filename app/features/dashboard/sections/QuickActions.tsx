@@ -27,13 +27,13 @@ const DEFAULT_ACTIONS: QuickAction[] = [
   },
 ];
 
-export function QuickActions({ actions = DEFAULT_ACTIONS, title = "Quick Actions" }: QuickActionsProps) {
+export function QuickActions({ actions = DEFAULT_ACTIONS, title = "Quick Actions"  }: QuickActionsProps) {
   return (
     <Card
       className="col-span-1 flex flex-col items-start !p-7 relative !rounded-[18px] shadow-card"
     >
       <div className="flex items-center mb-6 justify-between w-full">
-        <div className="text-h3 text-gray">{title}</div>
+        <div className="text-h1 text-black">{title}</div>
         <div className="bg-light-purple rounded-full h-10 w-10 flex items-center justify-center"><Image
           src="/assets/logos/vector.svg"
           alt="Activity"
@@ -52,8 +52,8 @@ export function QuickActions({ actions = DEFAULT_ACTIONS, title = "Quick Actions
             style={{ height: 44 }}
             onClick={action.onClick}
           >
-            <span className="flex items-center justify-center rounded-full mr-2 flex-shrink-0" style={{ background: action.bgColor }}>
-              <Plus className="text-white w-6 h-6" />
+            <span className="flex items-center justify-center rounded-full mr-2 flex-shrink-0" style={{ background: action.bgColor, width: "32px", height: "32px" }}>
+              {action.icon || <Plus className="text-white w-6 h-6" />}
             </span>
             <span className="text-base text-[#181945] font-normal truncate">{action.label}</span>
           </Button>

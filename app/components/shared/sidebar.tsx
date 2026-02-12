@@ -16,6 +16,7 @@ import {
   EventsIcon,
   MyAppIcon,
   MarketplaceIcon,
+  FolderOpenIcon,
 } from "./sidebarSections/icons";
 
 export interface NavItem {
@@ -77,7 +78,14 @@ export function Sidebar({
       href: "/events",
       isLogoIcon: true
     },
-    { label: "Notifications", icon: <Bell />, href: "/notifications", isLogoIcon: true },
+        { label: "Notifications", icon: <Bell />, href: "/notifications", isLogoIcon: true },
+
+    {
+      label: "Resources",
+      icon: <FolderOpenIcon color="white" />,
+      href: "/resources",
+      isLogoIcon: true
+    },
   ];
 
   const defaultBottomItems: NavItem[] = [

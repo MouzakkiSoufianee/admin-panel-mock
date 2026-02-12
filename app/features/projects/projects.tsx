@@ -253,7 +253,7 @@ export function Projects({
                         if (onEdit) {
                           onEdit(project.id);
                         } else {
-                          router.push(`/projects/${project.id}`);
+                          router.push(`/projects/update?id=${project.id}`);
                         }
                       }}
                       className="!text-[#716DF0] !bg-white flex items-center gap-1"

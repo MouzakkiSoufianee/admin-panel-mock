@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { usePageTitle } from "@/app/contexts/page-title-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
@@ -24,6 +24,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@/app/components/ui/date-picker";
 import Image from "next/image";
+import { fetchProjectById } from "@/app/data/api";
 
 interface CreateProjectFormData {
     projectName: string;
@@ -63,6 +64,10 @@ const QUICK_ACTIONS: QuickAction[] = [
 
 export function UpdateProject() {
     const { setPageTitle } = usePageTitle();
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const projectId = searchParams.get("id");
+
     const [formData, setFormData] = useState<CreateProjectFormData>({
         projectName: "",
         description: "",
@@ -74,10 +79,42 @@ export function UpdateProject() {
 
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [coverImagePreview, setCoverImagePreview] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setPageTitle("Projects ");
+        setPageTitle("Update Project");
     }, [setPageTitle]);
+
+    // Fetch project data on mount
+    useEffect(() => {
+        const loadProjectData = async () => {
+            if (!projectId) {
+                setIsLoading(false);
+                return;
+            }
+
+            try {
+                const projectData = await fetchProjectById(projectId);
+                
+                if (projectData) {
+                    setFormData({
+                        projectName: projectData.name,
+                        description: projectData.description || "",
+                        startDate: projectData.startDate ? new Date(projectData.startDate) : new Date(),
+                        endDate: projectData.endDate ? new Date(projectData.endDate) : new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+                        category: projectData.category || "onboarding",
+                        coverImage: null,
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to load project:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadProjectData();
+    }, [projectId]);
 
     const handleIconUpload = useCallback((files: File[]) => {
         if (files.length > 0) {
@@ -123,14 +160,46 @@ export function UpdateProject() {
         }));
     };
 
-    const handleCreateProject = () => {
-        console.log("Creating project with data:", formData);
-        // Add your API call here
+    const handleCreateProject = async () => {
+        if (!projectId) return;
+
+        try {
+            const updateData = {
+                name: formData.projectName,
+                description: formData.description,
+                startDate: formData.startDate?.toISOString().split('T')[0] || "",
+                endDate: formData.endDate?.toISOString().split('T')[0] || "",
+                category: formData.category,
+            };
+
+            const response = await fetch(`/api/projects/${projectId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updateData),
+            });
+
+            if (response.ok) {
+                console.log("Project updated successfully");
+                router.push('/projects');
+            } else {
+                console.error("Failed to update project");
+            }
+        } catch (error) {
+            console.error("Error updating project:", error);
+        }
     };
 
     const handleCancel = () => {
-        // Navigate back to projects
+        router.back();
     };
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <p className="text-gray-500">Loading project...</p>
+            </div>
+        );
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/ca
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { QuickActions, QuickAction } from "@/app/features/dashboard/sections/QuickActions";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft , Edit , Plus} from "lucide-react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@/app/components/ui/date-picker";
@@ -26,19 +26,20 @@ interface CreateEventFormData {
 const QUICK_ACTIONS: QuickAction[] = [
   {
     label: "Add Arena",
-    bgColor: "#8BC194",
+    bgColor: "#7BB6A7",
   },
   {
     label: "Edit project",
-    bgColor: "#7B7BFF",
+    bgColor: "#716DF0",
+    icon: <Edit className="text-white w-5 h-5" />,
   },
   {
-    label: "Add Journey",
-    bgColor: "#9B7BFF",
+    label: "Add resource",
+    bgColor: "#A855F7",
   },
   {
     label: "Add event",
-    bgColor: "#7B7BFF",
+    bgColor: "#5A7BFF",
   },
 ];
 
@@ -249,7 +250,7 @@ export function CreateEvent() {
                     </CardContent>
                     </Card>
             {/* Action Buttons */}
-            <div className="flex justify-end gap-3 pt-4">
+            <div className="flex justify-end gap-3 ">
               <Button
                 variant="outline"
                 size="xl"
@@ -264,7 +265,7 @@ export function CreateEvent() {
                 className="rounded-full"
                 onClick={handleCreateEvent}
               >
-                + Create event
+                <Plus /> Create event
               </Button>
             </div>
           </div>
