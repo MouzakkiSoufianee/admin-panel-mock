@@ -82,7 +82,7 @@ export function Sidebar({
 
     {
       label: "Resources",
-      icon: <FolderOpenIcon color="white" />,
+      icon: <FolderOpenIcon />,
       href: "/resources",
       isLogoIcon: true
     },

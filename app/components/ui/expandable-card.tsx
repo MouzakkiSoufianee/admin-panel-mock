@@ -42,7 +42,7 @@ export function ExpandableCard({
   };
 
   return (
-    <Card className="bg-white shadow-xs border-[1px] rounded-[18px] overflow-visible !p-0 transition-all duration-300">
+    <Card className="bg-white shadow-card border-[1px]  rounded-[18px] overflow-visible !p-0 transition-all duration-300">
       {/* Card Header */}
       <div
         onClick={() => setIsExpanded(!isExpanded)}

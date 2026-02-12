@@ -7,7 +7,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const variantClasses: Record<string, string> = {
-  primary: "bg-[#716DF0] text-white border-primary  shadow-md hover:shadow-lg border",
+  primary: "bg-[#716DF0] text-white   shadow-md hover:shadow-lg border",
   secondary: "bg-light-gray text-foreground hover:bg-gray-200",
   destructive: "bg-red text-white border-red hover:bg-red-600 shadow-md hover:shadow-lg border",
   menu_destructive: " text-[#FF5959] border-red shadow-md hover:shadow-lg ",

@@ -36,6 +36,13 @@ export interface Event {
   status: 'Completed' | 'Pending' | 'In Progress';
 }
 
+export interface Resource {
+  id: string;
+  title: string;
+  format: string;
+  size: string;
+}
+
 export interface Member {
   id: string;
   name: string;
@@ -172,6 +179,26 @@ export const fetchEventById = async (id: string): Promise<Event | null> => {
   await delay(400);
   const event = (mockData.events as any[]).find((e: any) => e.id === id);
   return event || null;
+};
+
+/**
+ * Fetch all resources
+ * @returns Promise<Resource[]>
+ */
+export const fetchResources = async (): Promise<Resource[]> => {
+  await delay(300);
+  return mockData.resources as Resource[];
+};
+
+/**
+ * Fetch a single resource by ID
+ * @param id - Resource ID
+ * @returns Promise<Resource | null>
+ */
+export const fetchResourceById = async (id: string): Promise<Resource | null> => {
+  await delay(400);
+  const resource = (mockData.resources as any[])?.find((r: any) => r.id === id);
+  return resource || null;
 };
 
 /**

@@ -19,6 +19,7 @@ export interface SlideableActionCardProps {
   actions: ActionButton[];
   className?: string;
   contentClassName?: string;
+  actionsContainerClassName?: string;
 }
 
 /**
@@ -32,12 +33,13 @@ export function SlideableActionCard({
   actions,
   className = '',
   contentClassName = '',
+  actionsContainerClassName = '',
 }: SlideableActionCardProps) {
   return (
     <div className={`relative rounded-lg transition-all duration-300 ${className}`}>
       {/* Action Buttons - appears behind the sliding card */}
       <div
-        className={`absolute top-0 right-0 h-full flex flex-col items-center justify-center gap-2 rounded-r-3xl p-3 bg-[#E3E3FE] z-0`}
+        className={`absolute top-0 right-0 h-full flex flex-col items-center justify-center gap-2 rounded-r-3xl p-3 bg-[#E3E3FE] z-0 ${actionsContainerClassName}`}
       >
         {actions.map((action, idx) => (
           <Button

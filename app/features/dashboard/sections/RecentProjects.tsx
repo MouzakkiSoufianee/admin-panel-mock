@@ -106,7 +106,7 @@ export function RecentProjects({
                 label: 'Delete',
               },
             ]}
-            contentClassName="grid grid-cols-12 gap-3 bg-white shadow items-center p-3"
+            contentClassName="grid grid-cols-12  gap-3 bg-white shadow items-center p-3"
           >
             <div className="col-span-3">
               <div className="font-medium text-black">{proj.name}</div>

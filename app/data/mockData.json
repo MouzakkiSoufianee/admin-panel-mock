@@ -419,6 +419,32 @@
       "status": "In Progress"
     }
   ],
+  "resources": [
+    {
+      "id": "r1",
+      "title": "React Advanced Patterns",
+      "format": "Mp4",
+      "size": "245Mb"
+    },
+    {
+      "id": "r2",
+      "title": "TypeScript Handbook",
+      "format": "PDF",
+      "size": "12Mb"
+    },
+    {
+      "id": "r3",
+      "title": "Node.js Best Practices Guide",
+      "format": "Mp4",
+      "size": "189Mb"
+    },
+    {
+      "id": "r4",
+      "title": "Web Performance Optimization",
+      "format": "Mp4",
+      "size": "156Mb"
+    }
+  ],
   "statistics": {
     "totalArenas": 6,
     "activeArenas": 5,
