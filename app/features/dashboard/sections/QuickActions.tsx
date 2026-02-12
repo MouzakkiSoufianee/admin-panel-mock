@@ -33,7 +33,7 @@ export function QuickActions({ actions = DEFAULT_ACTIONS, title = "Quick Actions
       className="col-span-1 flex flex-col items-start !p-7 relative !rounded-[18px] shadow-card"
     >
       <div className="flex items-center mb-6 justify-between w-full">
-        <div className="text-h1 text-black">{title}</div>
+        <div className="text-h3 text-gray">{title}</div>
         <div className="bg-light-purple rounded-full h-10 w-10 flex items-center justify-center"><Image
           src="/assets/logos/vector.svg"
           alt="Activity"
