@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Plus, Search, MoreVertical, Trash2, Edit } from 'lucide-react';
 import { Button } from '@/app/components//ui/button';
 import { Input } from '@/app/components/ui/input';
@@ -20,6 +21,7 @@ interface Resource {
 }
 
 export default function ResourcesPage() {
+    const router = useRouter();
     const [resources, setResources] = useState<Resource[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -41,7 +43,7 @@ export default function ResourcesPage() {
     }, []);
 
     const handleEdit = (resourceId: string) => {
-        console.log("Edit:", resourceId);
+        router.push(`/resources/update?id=${resourceId}`);
     };
 
     const handleDelete = (resourceId: string) => {
