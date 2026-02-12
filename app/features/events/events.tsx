@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
     
     Delete,
@@ -14,6 +15,7 @@ import type { Event } from '@/app/data/api';
 import { Button, Card, DuplicateIcon, ExpandableCard, Input } from '@/app';
 
 export default function Events() {
+    const router = useRouter();
     const [events, setEvents] = useState<Event[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -36,8 +38,7 @@ export default function Events() {
     }, []);
 
     const handleAddEvent = () => {
-        // Handle add event
-        console.log('Add event clicked');
+        router.push('/events/create');
     };
 
     const handleDuplicate = (id: string) => {

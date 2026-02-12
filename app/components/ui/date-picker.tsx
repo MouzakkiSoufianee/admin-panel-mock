@@ -31,37 +31,38 @@ function DatePicker({
       minDate={minDate}
       maxDate={maxDate}
       format={format}
+    
       slotProps={{
         textField: {
-          
+          variant: "outlined",
           size: "small",
           fullWidth: true,
           placeholder: placeholder,
           className: cn(
-            "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground ",
-            "rounded-[30px] px-6 py-3 text-sm transition-[color,box-shadow] ",
+            "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground",
+            "rounded-[20px] px-6 py-3 text-sm transition-[color,box-shadow]",
             "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-            " focus-visible:ring-ring/20 focus-visible:ring-[3px]",
+            "focus-visible:ring-ring/20 focus-visible:ring-[3px]",
             "placeholder:text-gray",
+            "!border-0 !rounded-[20px] !bg-white",
             className
           ),
           sx: {
-            "& .MuiFilledInput-root": {
-              borderRadius: "30px",
-              padding: 0,
-              height: "auto",
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "20px",
               fontSize: "0.875rem",
+              "& fieldset": {
+                borderColor: "#e5e7eb",
+                borderRadius: "20px",
+              },
+              "&:hover fieldset": {
+                borderColor: "#d1d5db",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#5a7bff",
+              },
             },
-            "& .MuiFilledInput-underline:before": {
-              borderBottom: "none",
-            },
-            "& .MuiFilledInput-underline:hover:before": {
-              borderBottom: "none",
-            },
-            "& .MuiFilledInput-underline:after": {
-              borderBottom: "none",
-            },
-            "& .MuiFilledInput-input": {
+            "& .MuiOutlinedInput-input": {
               padding: "10px 12px",
               fontSize: "0.875rem",
             },
