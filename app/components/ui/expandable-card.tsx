@@ -94,10 +94,18 @@ export function ExpandableCard({
         )}
       </div>
 
-      {/* Card Body - Expanded */}
-      {isExpanded && children && (
-        <div className="px-6 py-4 animate-in fade-in duration-500">
-          {children}
+      {/* Card Body - Expanded with smooth animations */}
+      {children && (
+        <div
+          className={`overflow-hidden transition-all duration-400 ${
+            isExpanded
+              ? 'opacity-100 max-h-[1000px] animate-in fade-in slide-in-from-top-4 zoom-in-95 duration-400'
+              : 'opacity-0 max-h-0'
+          }`}
+        >
+          <div className="px-6 py-4">
+            {children}
+          </div>
         </div>
       )}
     </Card>

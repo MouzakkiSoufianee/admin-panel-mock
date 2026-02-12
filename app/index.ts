@@ -25,6 +25,9 @@ export { Tag } from './components/ui/tag';
 export { ActionMenu, type ActionMenuItem } from './components/ui/action-menu';
 export { ExpandableCard, type ExpandableCardProps } from './components/ui/expandable-card';
 
+// Icons
+export { DuplicateIcon } from './components/shared/sidebarSections/icons';
+
 // Utils & Helpers
 export { 
   cn, 

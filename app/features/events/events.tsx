@@ -1,12 +1,17 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import {
-    Plus, Search
+    
+    Delete,
+    Edit,
+    Plus, Search,
+    Trash
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
+import { Badge } from '@/app/components/ui/badge';
 import { fetchEvents } from '@/app/data/api';
 import type { Event } from '@/app/data/api';
-import { Button, Card, ExpandableCard, Input } from '@/app';
+import { Button, Card, DuplicateIcon, ExpandableCard, Input } from '@/app';
 
 export default function Events() {
     const [events, setEvents] = useState<Event[]>([]);
@@ -88,7 +93,7 @@ export default function Events() {
                                     className="w-full px-4 py-2 border border-gray-300 "
                                 />
                             </div>
-                            <span className="text-[#5A7BFF] bg-[#DDF3FF] rounded-[12.5px] pr-1 pl-1 text-h3">Total events 8</span>
+                            <Badge className="!text-[#5A7BFF] bg-[#DDF3FF] rounded-[12.5px] pr-1 text-h3">Total events 8</Badge>
                         </div>
                         <Button
                             variant="primary"
@@ -98,6 +103,12 @@ export default function Events() {
                             <Plus size={20} />
                             Add event
                         </Button>
+
+                        
+                    </div>
+                    <div className="flex justify-between items-center mb-2">
+                        <p className='text-h2 text-black'>Recent Events</p>
+                        <Button variant='purple_link'> View all events</Button>
                     </div>
 
                     {/* Recent Events */}
@@ -106,6 +117,7 @@ export default function Events() {
                             <div className="space-y-4">
                                 {events.map((event) => (
                                     <ExpandableCard
+                                    
                                         key={event.id}
                                         id={event.id}
                                         title={event.title}
@@ -117,16 +129,22 @@ export default function Events() {
                                             {
                                                 label: 'Duplicate',
                                                 value: 'duplicate',
+                                                buttonVariant: 'menu_outline',
+                                                icon: <DuplicateIcon width={16} height={16} color="#7570F2" />,
                                                 onClick: () => handleDuplicate(event.id),
                                             },
                                             {
                                                 label: 'Edit',
                                                 value: 'edit',
+                                                buttonVariant: 'menu_outline',
+                                                icon: <Edit size={16} className="text-[#7570F2]" />,
                                                 onClick: () => handleEdit(event.id),
                                             },
                                             {
                                                 label: 'Delete',
                                                 value: 'delete',
+                                                buttonVariant: 'menu_destructive',
+                                                icon: <Trash size={16} className="text-[#FF5959]" />,
                                                 onClick: () => handleDelete(event.id),
                                                 variant: 'destructive',
                                             },
@@ -134,22 +152,22 @@ export default function Events() {
                                     >
                                         <div className="grid grid-cols-2 gap-6 text-sm">
                                             <div>
-                                                <p className="text-gray-600">
-                                                    <span className="font-medium">Created: </span>
+                                                <p className="text-h3 text-gray">
+                                                    <span className='text-black'>Created: </span>
                                                     {event.created}
                                                 </p>
-                                                <p className="text-gray-600 mt-2">
-                                                    <span className="font-medium">Duration: </span>
+                                                <p className="text-h3 text-gray mt-2">
+                                                    <span className="text-black">Duration: </span>
                                                     {event.duration}
                                                 </p>
                                             </div>
                                             <div>
-                                                <p className="text-gray-600">
-                                                    <span className="font-medium">Event ID: </span>
+                                                <p className="text-h3 text-gray">
+                                                    <span className="text-black">Event ID: </span>
                                                     {event.id}
                                                 </p>
-                                                <p className="text-gray-600 mt-2">
-                                                    <span className="font-medium">Status: </span>
+                                                <p className="text-h3 text-gray mt-2">
+                                                    <span className="text-black">Status: </span>
                                                     <span className="text-green-600 font-medium">
                                                         {event.status}
                                                     </span>
