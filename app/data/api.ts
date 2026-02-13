@@ -119,7 +119,7 @@ export const fetchAvailableProjects = async (arenaId: string): Promise<Project[]
 export const fetchProjectById = async (id: string): Promise<Project | null> => {
   await delay(500);
   const project = mockData.projects.find((p: any) => p.id === id);
-  return project || null;
+  return (project as Project) || null;
 };
 
 /**
