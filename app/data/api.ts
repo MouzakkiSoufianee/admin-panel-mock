@@ -17,7 +17,10 @@ export interface Project {
   name: string;
   description: string;
   status: string;
+  stage: string;
   createdDate: string;
+  startDate: string;
+  endDate: string;
   arenaId: string;
   members: string[];
   difficulty: string;

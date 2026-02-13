@@ -102,7 +102,7 @@ export function UpdateProject() {
                         description: projectData.description || "",
                         startDate: projectData.startDate ? new Date(projectData.startDate) : new Date(),
                         endDate: projectData.endDate ? new Date(projectData.endDate) : new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-                        category: projectData.category || "onboarding",
+                        category: projectData.stage || "onboarding",
                         coverImage: null,
                     });
                 }
